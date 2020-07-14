@@ -2,5 +2,12 @@
 # > 愛奇藝台灣站
 DOMAIN,cache.video.iqiyi.com,HKMTMedia
 # > bilibili
+DOMAIN-SUFFIX,biliapi.net,HKMTMedia
 DOMAIN,api.bilibili.com,HKMTMedia
+DOMAIN,www.bilibili.com,HKMTMedia
 DOMAIN,upos-hz-mirrorakam.akamaized.net,HKMTMedia
+# > 芒果TV国际
+DOMAIN-SUFFIX,api.mgtv.com,HKMTMedia
+# > WeTV
+DOMAIN-SUFFIX,wetv.vip,HKMTMedia
+DOMAIN-SUFFIX,wetvinfo.com,HKMTMedia
