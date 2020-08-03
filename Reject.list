@@ -778,3 +778,28 @@ IP-CIDR,118.89.204.198/32,REJECT
 # > ZOL
 DOMAIN,apppv.zol.com.cn,REJECT
 DOMAIN,pvnapp.zol.com.cn,REJECT
+
+# Privacy隐私
+DOMAIN,track.tiara.daum.net,REJECT
+DOMAIN,track.tiara.kakao.com,REJECT
+DOMAIN,trackapp.guahao.cn,REJECT
+DOMAIN,zgsdk.zhugeio.com,REJECT
+
+# > 58
+DOMAIN,track.58.com,REJECT
+DOMAIN,tracklog.58.com,REJECT
+# > Facebook
+# DOMAIN,graph.facebook.com,REJECT
+# > Google
+DOMAIN-SUFFIX,googletagmanager.com,REJECT
+DOMAIN,ssl.google-analytics.com,REJECT
+DOMAIN,www.google-analytics.com,REJECT
+# > MI
+DOMAIN-SUFFIX,tracking.miui.com,REJECT
+DOMAIN,data.mistat.xiaomi.com,REJECT
+DOMAIN,tracking.intl.miui.com,REJECT
+# > Tencent
+DOMAIN,pingma.qq.com,REJECT
+DOMAIN,btrace.qq.com,REJECT
+DOMAIN,mtrace.qq.com,REJECT
+DOMAIN,safebrowsing.urlsec.qq.com,REJECT
