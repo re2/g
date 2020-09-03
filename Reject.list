@@ -1,4 +1,5 @@
 # Internet Service Providers Hijacking运营商劫持
+
 DOMAIN-SUFFIX,17gouwuba.com,REJECT
 DOMAIN-SUFFIX,186078.com,REJECT
 DOMAIN-SUFFIX,189zj.cn,REJECT
@@ -144,6 +145,7 @@ IP-CIDR,220.196.52.141/32,REJECT
 IP-CIDR,221.6.4.148/32,REJECT
 # > ChinaMobile
 IP-CIDR,114.247.28.96/32,REJECT
+IP-CIDR,120.240.95.37/32,REJECT
 IP-CIDR,221.179.131.72/32,REJECT
 IP-CIDR,221.179.140.145/32,REJECT
 # > Dr.Peng
@@ -199,6 +201,7 @@ DOMAIN-SUFFIX,guitarpro.cc,REJECT
 DOMAIN-SUFFIX,huishenghuiying.com.cn,REJECT
 DOMAIN-SUFFIX,hypersnap.net,REJECT
 DOMAIN-SUFFIX,iconworkshop.cn,REJECT
+DOMAIN-SUFFIX,idmchina.net,REJECT
 DOMAIN-SUFFIX,imindmap.cc,REJECT
 DOMAIN-SUFFIX,jihehuaban.com.cn,REJECT
 DOMAIN-SUFFIX,keyshot.cc,REJECT
@@ -235,7 +238,6 @@ DOMAIN-SUFFIX,zbrushcn.com,REJECT
 DOMAIN-SUFFIX,zhzzx.com,REJECT
 
 # Advertising广告
-# Advertising
 # > General
 DOMAIN-KEYWORD,adservice,REJECT
 
@@ -243,8 +245,6 @@ DOMAIN-SUFFIX,1phads.com,REJECT
 DOMAIN-SUFFIX,1rtb.com,REJECT
 DOMAIN-SUFFIX,1xl.co.uk,REJECT
 DOMAIN-SUFFIX,206ads.com,REJECT
-DOMAIN-SUFFIX,247realmedia.com,REJECT
-DOMAIN-SUFFIX,2mdnsys.com,REJECT
 DOMAIN-SUFFIX,3cinteractive.com,REJECT
 DOMAIN-SUFFIX,4mads.com,REJECT
 DOMAIN-SUFFIX,5rocks.io,REJECT
@@ -316,6 +316,7 @@ DOMAIN-SUFFIX,adfalcon.com,REJECT
 DOMAIN-SUFFIX,adflow.ru,REJECT
 DOMAIN-SUFFIX,adinall.com,REJECT
 DOMAIN-SUFFIX,ad-locus.com,REJECT
+DOMAIN-SUFFIX,adlooxtracking.com,REJECT
 DOMAIN-SUFFIX,admaster.com.cn,REJECT
 DOMAIN-SUFFIX,ad-maven.com,REJECT
 DOMAIN-SUFFIX,admob.com,REJECT
@@ -324,9 +325,12 @@ DOMAIN-SUFFIX,adnxs.com,REJECT
 DOMAIN-SUFFIX,adnyg.com,REJECT
 DOMAIN-SUFFIX,ad-plus.cn,REJECT
 DOMAIN-SUFFIX,adsafeprotected.com,REJECT
+DOMAIN-SUFFIX,adsage.cn,REJECT
+DOMAIN-SUFFIX,adsage.com,REJECT
 DOMAIN-SUFFIX,ad-score.com,REJECT
 DOMAIN-SUFFIX,adsensor.org,REJECT
 DOMAIN-SUFFIX,adsmediabox.com,REJECT
+DOMAIN-SUFFIX,ads-pixiv.net,REJECT
 DOMAIN-SUFFIX,ad-srv.co,REJECT
 DOMAIN-SUFFIX,adsrvr.org,REJECT
 DOMAIN-SUFFIX,ad-stir.com,REJECT
@@ -336,10 +340,12 @@ DOMAIN-SUFFIX,adsymptotic.com,REJECT
 DOMAIN-SUFFIX,ad-sys.com,REJECT
 DOMAIN-SUFFIX,adtarget.io,REJECT
 DOMAIN-SUFFIX,adtarget.me,REJECT
+DOMAIN-SUFFIX,adtdp.com,REJECT
 DOMAIN-SUFFIX,adthor.com,REJECT
 DOMAIN-SUFFIX,adtrace.org,REJECT
 DOMAIN-SUFFIX,advertising.com,REJECT
 DOMAIN-SUFFIX,adwhirl.com,REJECT
+DOMAIN-SUFFIX,adwo.com,REJECT
 DOMAIN-SUFFIX,adxadserv.com,REJECT
 DOMAIN-SUFFIX,aiclk.com,REJECT
 DOMAIN-SUFFIX,amazon-adsystem.com,REJECT
@@ -351,6 +357,7 @@ DOMAIN-SUFFIX,appier.net,REJECT
 DOMAIN-SUFFIX,applift.com,REJECT
 DOMAIN-SUFFIX,applovin.com,REJECT
 DOMAIN-SUFFIX,applvn.com,REJECT
+DOMAIN-SUFFIX,appsflyer.com,REJECT
 DOMAIN-SUFFIX,apsalar.com,REJECT
 DOMAIN-SUFFIX,apxadtracking.net,REJECT
 DOMAIN-SUFFIX,atomhike.com,REJECT
@@ -367,8 +374,10 @@ DOMAIN-SUFFIX,clotfun.online,REJECT
 DOMAIN-SUFFIX,cloudmobi.net,REJECT
 DOMAIN-SUFFIX,crwdcntrl.net,REJECT
 DOMAIN-SUFFIX,ctrmi.com,REJECT
+DOMAIN-SUFFIX,domob.cn,REJECT
 DOMAIN-SUFFIX,eroadvertising.com,REJECT
 DOMAIN-SUFFIX,ero-advertising.com,REJECT
+DOMAIN-SUFFIX,exdynsrv.com,REJECT
 DOMAIN-SUFFIX,exosrv.com,REJECT
 DOMAIN-SUFFIX,go2cloud.org,REJECT
 DOMAIN-SUFFIX,growingio.com,REJECT
@@ -413,6 +422,7 @@ DOMAIN-SUFFIX,qchannel01.cn,REJECT
 DOMAIN-SUFFIX,rayjump.com,REJECT
 DOMAIN-SUFFIX,rtbasia.com,REJECT
 DOMAIN-SUFFIX,rubiconproject.com,REJECT
+DOMAIN-SUFFIX,runative-syndicate.com,REJECT
 DOMAIN-SUFFIX,scorecardresearch.com,REJECT
 DOMAIN-SUFFIX,sdkclick.com,REJECT
 DOMAIN-SUFFIX,shuzilm.cn,REJECT
@@ -425,6 +435,7 @@ DOMAIN-SUFFIX,tagtic.cn,REJECT
 DOMAIN-SUFFIX,tanv.com,REJECT
 DOMAIN-SUFFIX,tanx.com,REJECT
 DOMAIN-SUFFIX,tapjoy.com,REJECT
+DOMAIN-SUFFIX,teads.tv,REJECT
 DOMAIN-SUFFIX,trafficjunky.net,REJECT
 DOMAIN-SUFFIX,trvdp.com,REJECT
 DOMAIN-SUFFIX,turn.com,REJECT
@@ -470,18 +481,18 @@ DOMAIN-SUFFIX,aiseet.atianqi.com,REJECT
 
 DOMAIN,abema-adx.ameba.jp,REJECT
 DOMAIN,ad.12306.cn,REJECT
-DOMAIN,ad.360in.com,REJECT
 DOMAIN,ad.caiyunapp.com,REJECT
+DOMAIN,ad.flurry.com,REJECT
 DOMAIN,ad.huajiao.com,REJECT
 DOMAIN,ad.hzyoka.com,REJECT
 DOMAIN,ad.jiemian.com,REJECT
-DOMAIN,ad.qingting.fm,REJECT
 DOMAIN,ad.toutiao.com,REJECT
 DOMAIN,ad.wappalyzer.com,REJECT
 DOMAIN,ad-cn.jovcloud.com,REJECT
 DOMAIN,ads.adadapted.com,REJECT
 DOMAIN,ads.chinadaily.com.cn,REJECT
 DOMAIN,ads.daydaycook.com.cn,REJECT
+DOMAIN,ads.flurry.com,REJECT
 DOMAIN,ads.weilitoutiao.net,REJECT
 DOMAIN,adsapi.manhuaren.com,REJECT
 DOMAIN,adsdk.dmzj.com,REJECT
@@ -577,6 +588,10 @@ DOMAIN,adshows.21cn.com,REJECT
 # > Chelaile
 DOMAIN,atrace.chelaile.net.cn,REJECT
 DOMAIN,logs.chelaile.net.cn,REJECT
+# > Camera360
+DOMAIN,dispatcher.360in.com,REJECT
+DOMAIN,ad.360in.com,REJECT
+DOMAIN,exp.360in.com,REJECT
 
 # (G)
 # > Google
@@ -603,6 +618,7 @@ DOMAIN,adc.hpplay.cn,REJECT
 DOMAIN,adcdn.hpplay.cn,REJECT
 DOMAIN,adeng.hpplay.cn,REJECT
 DOMAIN,rp.hpplay.cn,REJECT
+DOMAIN,rpt.hpplay.cn,REJECT
 
 # (J)
 # > Kingsoft
@@ -682,6 +698,12 @@ DOMAIN,ivy.pchouse.com.cn,REJECT
 DOMAIN-SUFFIX,deliver.ifeng.com,REJECT
 DOMAIN,api.newad.ifeng.com,REJECT
 DOMAIN,ifengad.3g.ifeng.com,REJECT
+
+# (Q)
+# > QingTing
+DOMAIN,ad.qingting.fm,REJECT
+DOMAIN,adlaunch.qingting.fm,REJECT
+DOMAIN,ad-cdn.qingting.fm,REJECT
 
 # (S)
 # > Sina
@@ -769,25 +791,37 @@ DOMAIN,ads.yahoo.de,REJECT
 USER-AGENT,AVOS*,REJECT
 DOMAIN,appcloud2.zhihu.com,REJECT
 DOMAIN,sugar.zhihu.com,REJECT
+IP-CIDR,118.89.204.198/32,REJECT
 # > ZOL
 DOMAIN,apppv.zol.com.cn,REJECT
 DOMAIN,pvnapp.zol.com.cn,REJECT
 
+
 # Privacy隐私
+
 DOMAIN,track.tiara.daum.net,REJECT
 DOMAIN,track.tiara.kakao.com,REJECT
-DOMAIN,trackapp.guahao.cn,REJECT
 DOMAIN,zgsdk.zhugeio.com,REJECT
 
+# > 51.LA
+DOMAIN,js.users.51.la,REJECT
+DOMAIN,mc.51.la,REJECT
+DOMAIN,wc.51.la,REJECT
 # > 58
 DOMAIN,track.58.com,REJECT
 DOMAIN,tracklog.58.com,REJECT
-# > Facebook
-# DOMAIN,graph.facebook.com,REJECT
+# > Baidu
+DOMAIN,hm.baidu.com,REJECT
+DOMAIN,hmma.baidu.com,REJECT
+# > ByteDance
+DOMAIN,log-va.tiktokv.com,REJECT
+DOMAIN,log-lq.snssdk.com,REJECT
+DOMAIN,xlog.snssdk.com,REJECT
+DOMAIN,log-hl-ipv6.snssdk.com,REJECT
 # > Google
 DOMAIN-SUFFIX,googletagmanager.com,REJECT
-DOMAIN,ssl.google-analytics.com,REJECT
-DOMAIN,www.google-analytics.com,REJECT
+DOMAIN-SUFFIX,google-analytics.com,REJECT
+DOMAIN,safebrowsing.googleapis.com,REJECT
 # > MI
 DOMAIN-SUFFIX,tracking.miui.com,REJECT
 DOMAIN,data.mistat.xiaomi.com,REJECT
@@ -797,3 +831,6 @@ DOMAIN,pingma.qq.com,REJECT
 DOMAIN,btrace.qq.com,REJECT
 DOMAIN,mtrace.qq.com,REJECT
 DOMAIN,safebrowsing.urlsec.qq.com,REJECT
+# > Umeng
+DOMAIN-KEYWORD,logs.umeng.com,REJECT
+DOMAIN-KEYWORD,logs.umengcloud.com,REJECT
