@@ -159,6 +159,7 @@ IP-CIDR,124.14.21.147/32,REJECT
 IP-CIDR,124.14.21.151/32,REJECT
 IP-CIDR,180.166.52.24/32,REJECT
 IP-CIDR,211.161.101.106/32,REJECT
+IP-CIDR,211.161.101.110/32,REJECT
 IP-CIDR,220.115.251.25/32,REJECT
 IP-CIDR,222.73.156.235/32,REJECT
 
@@ -166,14 +167,18 @@ IP-CIDR,222.73.156.235/32,REJECT
 # > Huawei AspiegelBot
 IP-CIDR,114.119.160.0/21,REJECT
 # > KuaiZip
+# https://zhuanlan.zhihu.com/p/39534279
 DOMAIN-SUFFIX,kuaizip.com,REJECT
 # > MacKeeper
+# https://www.lizhi.io/blog/40002904
 DOMAIN-SUFFIX,mackeeper.com,REJECT
 DOMAIN-SUFFIX,zryydi.com,REJECT
 # > Adobe Flash China Special Edition
+# https://www.zhihu.com/question/281163698/answer/441388130
 DOMAIN-SUFFIX,flash.cn,REJECT
 DOMAIN,geo2.adobe.com,REJECT
 # > C&J Marketing
+# https://www.zhihu.com/question/46746200
 DOMAIN-SUFFIX,4009997658.com,REJECT
 DOMAIN-SUFFIX,abbyychina.com,REJECT
 DOMAIN-SUFFIX,bartender.cc,REJECT
@@ -365,6 +370,7 @@ DOMAIN-SUFFIX,brightcom.com,REJECT
 DOMAIN-SUFFIX,bulldogcpi.com,REJECT
 DOMAIN-SUFFIX,bxsnews.com,REJECT
 DOMAIN-SUFFIX,carbonads.net,REJECT
+DOMAIN-SUFFIX,cdj99d.cn,REJECT
 DOMAIN-SUFFIX,clotfun.mobi,REJECT
 DOMAIN-SUFFIX,clotfun.online,REJECT
 DOMAIN-SUFFIX,cloudmobi.net,REJECT
@@ -482,7 +488,6 @@ DOMAIN,ad.flurry.com,REJECT
 DOMAIN,ad.huajiao.com,REJECT
 DOMAIN,ad.hzyoka.com,REJECT
 DOMAIN,ad.jiemian.com,REJECT
-DOMAIN,ad.toutiao.com,REJECT
 DOMAIN,ad.wappalyzer.com,REJECT
 DOMAIN,ad-cn.jovcloud.com,REJECT
 DOMAIN,ads.adadapted.com,REJECT
@@ -498,7 +503,7 @@ DOMAIN,adui.tg.meitu.com,REJECT
 DOMAIN,adv.bandi.so,REJECT
 DOMAIN,adv.ettoday.net,REJECT
 DOMAIN,api.adnet.mob.com,REJECT
-DOMAIN,app-ad.variflight.com,REJECT
+DOMAIN,api-ad.kajicam.com,REJECT
 DOMAIN,appnext.hs.llnwd.net,REJECT
 DOMAIN,appnext-a.akamaihd.net,REJECT
 DOMAIN,business-cdn.shouji.sogou.com,REJECT
@@ -506,6 +511,7 @@ DOMAIN,g.ousns.net,REJECT
 DOMAIN,ggs.myzaker.com,REJECT
 DOMAIN,ggx.cmvideo.cn,REJECT
 DOMAIN,itad.linetv.tw,REJECT
+DOMAIN,ma-adx.ctrip.com,REJECT
 DOMAIN,mads.suning.com,REJECT
 DOMAIN,mobileads.msn.com,REJECT
 DOMAIN,mopnativeadv.037201.com,REJECT
@@ -563,6 +569,10 @@ IP-CIDR,101.227.200.11/32,REJECT
 IP-CIDR,101.227.200.28/32,REJECT
 IP-CIDR,124.192.153.42/32,REJECT
 # ------
+# > ByteDance
+DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
+DOMAIN,ad.toutiao.com,REJECT
+DOMAIN,pangolin.snssdk.com,REJECT
 # > baicizhan
 DOMAIN,advertise.baicizhan.com,REJECT
 DOMAIN,advertise.baicizhan.org,REJECT
@@ -640,12 +650,6 @@ DOMAIN,cwx.lianwangtech.com,REJECT
 DOMAIN,c1wx.lianwangtech.com,REJECT
 
 # (M)
-# > MI
-DOMAIN-SUFFIX,ad.intl.xiaomi.com,REJECT
-DOMAIN-SUFFIX,ad.xiaomi.com,REJECT
-DOMAIN-SUFFIX,admob.xiaomi.com,REJECT
-DOMAIN,adv.sec.intl.miui.com,REJECT
-DOMAIN,adv.sec.miui.com,REJECT
 # > MojiWeather
 DOMAIN,ad.api.moji.com,REJECT
 DOMAIN,adlaunch.moji.com,REJECT
@@ -756,6 +760,12 @@ DOMAIN,imgadpai.thepaper.cn,REJECT
 DOMAIN,adsp.xunlei.com,REJECT
 DOMAIN,etl.xlmc.sandai.net,REJECT
 
+# (V)
+# > VariFlight
+DOMAIN,adv-adlog.variflight.com,REJECT
+DOMAIN,adv-ads.variflight.com,REJECT
+DOMAIN,app-ad.variflight.com,REJECT
+
 # (X)
 # > Ximalaya
 DOMAIN,ad.ximalaya.com,REJECT
@@ -786,6 +796,7 @@ DOMAIN,ads.yahoo.de,REJECT
 # > Zhihu
 USER-AGENT,AVOS*,REJECT
 DOMAIN,appcloud2.zhihu.com,REJECT
+DOMAIN,appcloud2.in.zhihu.com,REJECT
 DOMAIN,sugar.zhihu.com,REJECT
 IP-CIDR,118.89.204.198/32,REJECT
 # > ZOL
@@ -810,10 +821,12 @@ DOMAIN,tracklog.58.com,REJECT
 DOMAIN,hm.baidu.com,REJECT
 DOMAIN,hmma.baidu.com,REJECT
 # > ByteDance
-DOMAIN,log-va.tiktokv.com,REJECT
-DOMAIN,log-lq.snssdk.com,REJECT
-DOMAIN,xlog.snssdk.com,REJECT
+DOMAIN,log.byteoversea.com,REJECT
+DOMAIN,log.tiktokv.com,REJECT
 DOMAIN,log-hl-ipv6.snssdk.com,REJECT
+DOMAIN,log-lq.snssdk.com,REJECT
+DOMAIN,log-va.tiktokv.com,REJECT
+DOMAIN,xlog.snssdk.com,REJECT
 # > Google
 DOMAIN-SUFFIX,googletagmanager.com,REJECT
 DOMAIN-SUFFIX,google-analytics.com,REJECT
@@ -823,8 +836,9 @@ DOMAIN-SUFFIX,tracking.miui.com,REJECT
 DOMAIN,data.mistat.xiaomi.com,REJECT
 DOMAIN,tracking.intl.miui.com,REJECT
 # > Tencent
-DOMAIN,pingma.qq.com,REJECT
+DOMAIN-SUFFIX,trace.qq.com,REJECT
 DOMAIN,btrace.qq.com,REJECT
+DOMAIN,btrace.video.qq.com,REJECT
 DOMAIN,mtrace.qq.com,REJECT
 DOMAIN,safebrowsing.urlsec.qq.com,REJECT
 # > Umeng
