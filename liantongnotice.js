@@ -21,7 +21,7 @@ const getck=1;//设置0关闭获取ck,1开启获取ck
 //以下部分不要改动
 
 var all="";
-var tt=`联通话费流量 `;
+var tt=`中国联通`;
 var LianTongck="";var LianTongckst="LianTongckst";
 var queryUserInfoSeven="";var LianTongurlst="liantongurlst";
 
