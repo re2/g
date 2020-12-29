@@ -23,11 +23,21 @@ DOMAIN-SUFFIX,googletraveladservices.com,DIRECT
 DOMAIN,clientservices.googleapis.com,DIRECT
 DOMAIN,dl.google.com,DIRECT
 DOMAIN,dl.l.google.com,DIRECT
+DOMAIN,update.googleapis.com,DIRECT
+DOMAIN,translate.googleapis.com,DIRECT
+# >> Google Fonts API
 DOMAIN,fonts.googleapis.com,DIRECT
 DOMAIN,fonts.gstatic.com,DIRECT
+# >> Firebase Cloud Messaging
 DOMAIN,mtalk.google.com,DIRECT
-DOMAIN,translate.googleapis.com,DIRECT
-DOMAIN,update.googleapis.com,DIRECT
+DOMAIN,alt1-mtalk.google.com,DIRECT
+DOMAIN,alt2-mtalk.google.com,DIRECT
+DOMAIN,alt3-mtalk.google.com,DIRECT
+DOMAIN,alt4-mtalk.google.com,DIRECT
+DOMAIN,alt5-mtalk.google.com,DIRECT
+DOMAIN,alt6-mtalk.google.com,DIRECT
+DOMAIN,alt7-mtalk.google.com,DIRECT
+DOMAIN,alt8-mtalk.google.com,DIRECT
 # > Tencent
 DOMAIN,fairplay.l.qq.com,DIRECT
 DOMAIN,livew.l.qq.com,DIRECT
@@ -79,6 +89,7 @@ DOMAIN-SUFFIX,baidu.com,DIRECT
 DOMAIN-SUFFIX,baidubcr.com,DIRECT
 DOMAIN-SUFFIX,baidupan.com,DIRECT
 DOMAIN-SUFFIX,baidupcs.com,DIRECT
+DOMAIN-SUFFIX,bdimg.com,DIRECT
 DOMAIN-SUFFIX,bdstatic.com,DIRECT
 DOMAIN-SUFFIX,yunjiasu-cdn.net,DIRECT
 # > bilibili
@@ -124,6 +135,11 @@ DOMAIN-SUFFIX,meitu.com,DIRECT
 DOMAIN-SUFFIX,meitudata.com,DIRECT
 DOMAIN-SUFFIX,meitustat.com,DIRECT
 DOMAIN-SUFFIX,meipai.com,DIRECT
+# > Meituan
+DOMAIN-SUFFIX,dianping.com,DIRECT
+DOMAIN-SUFFIX,dpfile.com,DIRECT
+DOMAIN-SUFFIX,meituan.com,DIRECT
+DOMAIN-SUFFIX,meituan.net,DIRECT
 # > MI
 DOMAIN-SUFFIX,duokan.com,DIRECT
 DOMAIN-SUFFIX,mi.com,DIRECT
@@ -207,9 +223,11 @@ DOMAIN-SUFFIX,ip.la,DIRECT
 DOMAIN-SUFFIX,ip.sb,DIRECT
 DOMAIN-SUFFIX,ip-cdn.com,DIRECT
 DOMAIN-SUFFIX,ipv6-test.com,DIRECT
+DOMAIN-SUFFIX,myip.la,DIRECT
 DOMAIN-SUFFIX,test-ipv6.com,DIRECT
 DOMAIN-SUFFIX,whatismyip.com,DIRECT
 DOMAIN,ip.istatmenus.app,DIRECT
+DOMAIN,sms.imagetasks.com,DIRECT
 # > Speed Test
 # DOMAIN-SUFFIX,speedtest.net,DIRECT
 DOMAIN-SUFFIX,netspeedtestmaster.com,DIRECT
@@ -247,21 +265,6 @@ DOMAIN-SUFFIX,redacted.ch,DIRECT
 DOMAIN-SUFFIX,springsunday.net,DIRECT
 DOMAIN-SUFFIX,tjupt.org,DIRECT
 DOMAIN-SUFFIX,totheglory.im,DIRECT
-# > 
-DOMAIN-SUFFIX,343480.com,DIRECT
-DOMAIN-SUFFIX,agefans.tv,DIRECT
-DOMAIN-SUFFIX,baduziyuan.com,DIRECT
-DOMAIN-SUFFIX,cdn9-okzy.com,DIRECT
-DOMAIN-SUFFIX,com-hs-hkdy.com,DIRECT
-DOMAIN-SUFFIX,czybjz.com,DIRECT
-DOMAIN-SUFFIX,dandanzan.com,DIRECT
-DOMAIN-SUFFIX,fjhps.com,DIRECT
-DOMAIN-SUFFIX,kuyunbo.club,DIRECT
-DOMAIN-SUFFIX,nfmovies.com,DIRECT
-DOMAIN-SUFFIX,okokbo.com,DIRECT
-DOMAIN-SUFFIX,sd-dykj.com,DIRECT
-DOMAIN-SUFFIX,yhdm.tv,DIRECT
-DOMAIN-SUFFIX,youkutv.cc,DIRECT
 # > Other
 DOMAIN-SUFFIX,cn,DIRECT
 DOMAIN-SUFFIX,115.com,DIRECT
@@ -279,7 +282,6 @@ DOMAIN-SUFFIX,amd.com,DIRECT
 DOMAIN-SUFFIX,b612.net,DIRECT
 DOMAIN-SUFFIX,bdatu.com,DIRECT
 DOMAIN-SUFFIX,beitaichufang.com,DIRECT
-DOMAIN-SUFFIX,bjango.com,DIRECT
 DOMAIN-SUFFIX,booking.com,DIRECT
 DOMAIN-SUFFIX,bstatic.com,DIRECT
 DOMAIN-SUFFIX,cailianpress.com,DIRECT
@@ -293,6 +295,7 @@ DOMAIN-SUFFIX,cmbchina.com,DIRECT
 DOMAIN-SUFFIX,cmbimg.com,DIRECT
 DOMAIN-SUFFIX,ctrip.com,DIRECT
 DOMAIN-SUFFIX,dfcfw.com,DIRECT
+DOMAIN-SUFFIX,dji.net,DIRECT
 DOMAIN-SUFFIX,docschina.org,DIRECT
 DOMAIN-SUFFIX,douban.com,DIRECT
 DOMAIN-SUFFIX,doubanio.com,DIRECT
@@ -332,12 +335,9 @@ DOMAIN-SUFFIX,kkmh.com,DIRECT
 DOMAIN-SUFFIX,lanzous.com,DIRECT
 DOMAIN-SUFFIX,licdn.com,DIRECT
 DOMAIN-SUFFIX,linkedin.com,DIRECT
-DOMAIN-SUFFIX,loli.net,DIRECT
 DOMAIN-SUFFIX,luojilab.com,DIRECT
 DOMAIN-SUFFIX,maoyan.com,DIRECT
 DOMAIN-SUFFIX,maoyun.tv,DIRECT
-DOMAIN-SUFFIX,meituan.com,DIRECT
-DOMAIN-SUFFIX,meituan.net,DIRECT
 DOMAIN-SUFFIX,mls-cdn.com,DIRECT
 DOMAIN-SUFFIX,mobike.com,DIRECT
 DOMAIN-SUFFIX,moke.com,DIRECT
