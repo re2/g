@@ -43,7 +43,7 @@ function LianTongApp_data(){
   {
     
 let st1="读取签到Cookies数据错误❎";
-let st2=`打开手机联通app客户端获取cookies.😌`;
+let st2=`打开手机联通app客户端获取cookies😌`;
     console.log(st1+"\n"+st2);
     papa(tt,st1,st2)}
   else {LianTongck=JSON.parse(LianTongck);
