@@ -1,11 +1,25 @@
-# (HKMTMedia)
-# > 愛奇藝台灣站
-DOMAIN,cache.video.iqiyi.com,HKMTMedia
 # > bilibili
 DOMAIN-SUFFIX,biliapi.net,HKMTMedia
-DOMAIN,api.bilibili.com,HKMTMedia
-DOMAIN,www.bilibili.com,HKMTMedia
+DOMAIN-SUFFIX,bilibili.com,HKMTMedia
 DOMAIN,upos-hz-mirrorakam.akamaized.net,HKMTMedia
+# > 愛奇藝台灣站 & iQIYI
+DOMAIN-SUFFIX,iq.com,HKMTMedia
+DOMAIN,cache.video.iqiyi.com,HKMTMedia
+DOMAIN,cache-video.iq.com,HKMTMedia
+DOMAIN,intl.iqiyi.com,HKMTMedia
+DOMAIN,intl-rcd.iqiyi.com,HKMTMedia
+DOMAIN,intl-subscription.iqiyi.com,HKMTMedia
+# (流媒体内容，非必须，省流量可注释)
+DOMAIN,akmcdnoversea-tw.inter.iqiyi.com,HKMTMedia
+DOMAIN,akmcdnoversea-tw.inter.ptqy.gitv.tv,HKMTMedia
+DOMAIN,chuangcachecdnoversea-tw.inter.iqiyi.com,HKMTMedia
+DOMAIN,chuangcachecdnoversea-tw.inter.ptqy.gitv.tv,HKMTMedia
+IP-CIDR,103.44.56.0/22,HKMTMedia
+IP-CIDR,118.26.32.0/23,HKMTMedia
+IP-CIDR,118.26.120.0/24,HKMTMedia
+IP-CIDR,223.119.62.225/28,HKMTMedia
+IP-CIDR,23.40.242.10/32,HKMTMedia
+IP-CIDR,23.40.241.251/32,HKMTMedia
 # > 芒果TV国际
 DOMAIN-SUFFIX,api.mgtv.com,HKMTMedia
 # > WeTV
