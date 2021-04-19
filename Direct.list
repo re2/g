@@ -481,3 +481,10 @@ DOMAIN,images-cn.ssl-images-amazon.com,DIRECT
 # Tencent
 IP-CIDR,119.28.28.28/32,DIRECT
 IP-CIDR,182.254.116.0/24,DIRECT
+
+# Speedtest
+DOMAIN-SUFFIX,fast.com,DIRECT
+DOMAIN-SUFFIX,ooklaserver.net,DIRECT
+DOMAIN-SUFFIX,speed.cloudflare.com,DIRECT
+DOMAIN-KEYWORD,speedtest,DIRECT
+USER-AGENT,SpeedTest*,DIRECT
