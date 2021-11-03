@@ -1,782 +1,547 @@
 /*
-README：https://github.com/yichahucha/surge/tree/master
- */
-/*
-JD | TB Price comparison
-by Small
-date 2021-06-25
-Thanks @yichahucha
+Loon/Surge
+[Script]
+http-response ^https?://api\.m\.jd\.com/(client\.action|api)\?functionId=(wareBusiness|serverConfig|basicConfig|lite_wareBusiness|pingou_item) requires-body=1,script-path=https://raw.githubusercontent.com/Tartarus2014/Script/master/jdjf_price.js, tag=京东比价
+
+[MITM]
+hostname = api.m.jd.com
 
 QX:
-^https?://api\.m\.jd\.com/client\.action\?functionId=(wareBusiness|serverConfig|basicConfig) url script-response-body https://service.2ti.st/QuanX/Script/jd_tb_price/main.js
+^https?://api\.m\.jd\.com/(client\.action|api)\?functionId=(wareBusiness|serverConfig|basicConfig|lite_wareBusiness|pingou_item) url script-response-body https://raw.githubusercontent.com/Tartarus2014/Script/master/jdjf_price.js
 
-^http://.+/amdc/mobileDispatch url script-request-body https://service.2ti.st/QuanX/Script/jd_tb_price/main.js
-^https?://trade-acs\.m\.taobao\.com/gw/mtop\.taobao\.detail\.getdetail url script-response-body https://service.2ti.st/QuanX/Script/jd_tb_price/main.js
-
-Surge4:
-http-response ^https?://api\.m\.jd\.com/client\.action\?functionId=(wareBusiness|serverConfig|basicConfig) requires-body=1,script-path=https://service.2ti.st/QuanX/Script/jd_tb_price/main.js
-
-http-request ^http://.+/amdc/mobileDispatch requires-body=1,script-path=https://service.2ti.st/QuanX/Script/jd_tb_price/main.js
-http-response ^https?://trade-acs\.m\.taobao\.com/gw/mtop\.taobao\.detail\.getdetail requires-body=1,script-path=https://service.2ti.st/QuanX/Script/jd_tb_price/main.js
-
-Surge & QX MITM = api.m.jd.com, trade-acs.m.taobao.com
+Boxjs订阅：https://raw.githubusercontent.com/githubdulong/Script/master/boxjs.json
 */
+ 
+const path1 = "serverConfig";
+const path2 = "wareBusiness";
+const path2h = "wareBusiness.style";
+const path3 = "basicConfig";
+const path4 = "pingou_item";
+const consolelog = false;
+const url = $request.url;
+const body = $response.body;
+const $tool = tool();
 
-const ScriptName = "浜笢|娣樺疂 姣斾环";
-const $ = new Env(ScriptName);
+let cookie = $tool.getCache("jfCookie") || "";
+let cscheme = $tool.getCache("jfChooseScheme") || "jd"; // "jx","js","jk" 京东、京喜、京东极速版、京东健康
+let jsapp = [true, "true"].includes($tool.getCache("jfusejsapp")) || false; // 对极速版是否也跳转 app，注意即使跳转 app，也需要先加入购物车返回再结账，否则无法使用极速版优惠券
+let browser = $tool.getCache("chooseBrowser") || "Safari";
+let jfAutoScheme = $tool.getCache("jfAutoScheme"); // 本地不使用 BoxJs 可自行更改 let jfAutoScheme = true / false
+let jfConvert = $tool.getCache("jfUseConvert");
 
-const ScriptIdentifier = "jd_tb_price";
-const ScriptVersion = 5;
-const ScriptUrl = `https://service.2ti.st/QuanX/Script/${ScriptIdentifier}`
-
-const res = $request;
-const resp = isUndefined($response) ? null : $response;
-
-let Status = {
-    Enable: 1,
-    Disable: 2
-};
-
-let Type = {
-    Init: 1,
-    Default: 2,
-    HandleFun: 3
-};
-
-let MatchType = {
-    None: 1,
-    RegExp: 2,
-    Contains: 3,
-    FullMatch: 4
-}
-
-const Jobs = [
-    //JD
-    {
-        name: "serverConfig",
-        status: Status.Enable,
-        type: Type.HandleFun,
-        matchType: MatchType.Contains,
-        keyword: "serverConfig",
-        fun: handleServerConfig
-    },
-    {
-        name: "wareBusiness",
-        status: Status.Enable,
-        type: Type.HandleFun,
-        matchType: MatchType.Contains,
-        keyword: "wareBusiness",
-        fun: handleWareBusiness
-    },
-    {
-        name: "basicConfig",
-        status: Status.Enable,
-        type: Type.HandleFun,
-        matchType: MatchType.Contains,
-        keyword: "basicConfig",
-        fun: handleBasicConfig
-    },
-    //TB
-    {
-        name: "mobileDispatch",
-        status: Status.Enable,
-        type: Type.HandleFun,
-        matchType: MatchType.Contains,
-        keyword: "/amdc/mobileDispatch",
-        fun: handleMobileDispatch
-    },
-    {
-        name: "getdetail",
-        status: Status.Enable,
-        type: Type.HandleFun,
-        matchType: MatchType.Contains,
-        keyword: "/gw/mtop.taobao.detail.getdetail",
-        fun: handleGetdetail
-    }
-];
-
-initScript();
-
-// Handle JD API ServerConfig
-function handleServerConfig() {
-    $.log("Start Handle ServerConfig Job");
-    let body = JSON.parse(resp.body);
-    delete body.serverConfig.httpdns;
-    delete body.serverConfig.dnsvip;
-    delete body.serverConfig.dnsvip_v6;
-    $.log("Success Handle ServerConfig Job");
-    $.done({ body: JSON.stringify(body) });
-}
-
-// Handle JD API WareBusiness
-function handleWareBusiness() {
-    $.log("Start Handle WareBusiness Job");
-    let body = JSON.parse(resp.body);
-    let floors = body.floors;
-    const commodity_info = floors[floors.length - 1];
-    const skuId = commodity_info.data.wareInfo.skuId;
-    $.log("skuId:" + skuId);
-    handleRequest(skuId, "JD", text => {
-        const obj = {
-            "bId": "eCustom_flo_199",
-            "cf": {
-                "bgc": "#ffffff",
-                "spl": "empty"
-            },
-            "data": {
-                "ad": {
-                    "adword": text,
-                    "textColor": "#fe0000",
-                    "color": "#f23030",
-                    "text-align": "justify",
-                    "word-break": "break-all",
-                    "newALContent": true,
-                    "hasFold": true,
-                    "class": "com.jd.app.server.warecoresoa.domain.AdWordInfo.AdWordInfo",
-                    "adLinkContent": "",
-                    "adLink": ""
-                }
-            },
-            "mId": "bpAdword",
-            "refId": "eAdword_0000000028",
-            "sortId": 13
-        };
-
-        let bestIndex = 0;
-        for (let index = 0; index < floors.length; index++) {
-            const element = floors[index];
-            if (element.mId === obj.mId) {
-                bestIndex = index + 1;
-                break;
-            } else {
-                if (element.sortId > obj.sortId) {
-                    bestIndex = index;
-                    break;
-                }
-            }
+let chooseScheme;
+let chooseBrowser;
+switch (cscheme) {
+    case "jd":
+        chooseScheme = "openjd";
+        break;
+    case "jx":
+        chooseScheme = "openapp.jdpingou";
+        break;
+    case "jk":
+        chooseScheme = "openApp.jdHealth";
+        break;
+    case "js":
+        if (jsapp) {
+            chooseScheme = "openjdlite";
+            break;
         }
-
-        floors.insert(bestIndex, obj);
-        $.done({ body: JSON.stringify(body) });
-    });
+    case "browser":
+        chooseScheme = "browser";
+        break;
 }
-
-// Handle JD API BasicConfig
-function handleBasicConfig() {
-    $.log("Start Handle BaseConfig");
-    let body = JSON.parse(resp.body);
-    let JDHttpToolKit = body.data.JDHttpToolKit;
-    if (JDHttpToolKit) {
-        delete body.data.JDHttpToolKit.httpdns;
-        delete body.data.JDHttpToolKit.dnsvipV6;
-    }
-    $.done({ body: JSON.stringify(body) });
+switch (browser) {
+    case "Safari":
+        chooseBrowser = "";
+        break;
+    case "Alook":
+        chooseBrowser = "Alook://";
+        break;
+    default:
+        chooseBrowser = $tool.getCache("jfDIYScheme");
 }
+const autoChoose = jfAutoScheme == undefined ? true : [true, "true"].includes(jfAutoScheme);
+const useConvert = jfAutoScheme == undefined ? true : [true, "true"].includes(jfConvert);
+let autoScheme;
+let cookiesArr = [
+    $tool.getCache("CookieJD"),
+    $tool.getCache("CookieJD2"),
+    ...cookieParse($tool.getCache("CookiesJD") || "[]").map((item) => item.cookie),
+].filter((item) => !!item);
 
-// Handle TB API MobileDispatch
-function handleMobileDispatch() {
-    $.log("Start Handle MobileDispatch");
-    if (isUndefined(resp) || isNull(resp)) {
-        $.log("MobileDispatch handle request");
-        let headers = res.headers;
-        let body = res.body;
-        if (headers["User-Agent"].indexOf("%E6%B7%98%E5%AE%9D") != -1) {
-            let json = Qs2Json(body);
-            let domain = json.domain.split(" ");
-            let i = domain.length;
-            while (i--) {
-                const block = "trade-acs.m.taobao.com";
-                const element = domain[i];
-                if (element == block) {
-                    domain.splice(i, 1);
-                }
-            }
-            json.domain = domain.join(" ");
-            body = Json2Qs(json);
-        }
-        $.done({ body });
-    } else {
-        $.log("MobileDispatch handle response");
-        const base64 = new Base64();
-        let body = resp.body;
-        let obj = JSON.parse(base64.decode(body));
-        let dns = obj.dns;
-        if (dns && dns.length > 0) {
-            let i = dns.length;
-            while (i--) {
-                const element = dns[i];
-                let host = "trade-acs.m.taobao.com";
-                if (element.host == host) {
-                    element.ips = [];
-                }
-            }
-        }
-        body = base64.encode(JSON.stringify(obj));
-        $.done({ body });
-    }
-}
-
-// Handle TB API Getdetail
-function handleGetdetail() {
-    $.log("Start Handle Getdetail");
-    let body = JSON.parse(resp.body);
-    const skuId = body.data.item.itemId;
-    $.log("skuId:" + skuId);
-    handleRequest(skuId, "TB", text => {
-        if (body.data.apiStack) {
-            let apiStack = body.data.apiStack[0];
-            let value = JSON.parse(apiStack.value);
-
-            let data = null;
-
-            if (value.global) {
-                data = value.global.data;
-            } else {
-                data = value;
-            }
-
-            //Title
-            try {
-                let guaranteeBarVO = data.componentsVO.guaranteeBarVO;
-                let textList = guaranteeBarVO.guaranteeItems[0].textList;
-                textList.unshift("浠锋牸璇︽儏");
-            } catch (e) {
-                $.logErr(e, "handleGetdetail handle title error");
-            }
-
-
-            //Body
-            try {
-                let tradeConsumerProtection = data.tradeConsumerProtection;
-                let consumerProtection = data.consumerProtection;
-
-
-                if (tradeConsumerProtection) {
-                    setTBItems(tradeConsumerProtection.tradeConsumerService.service.items, createTBItem("浠锋牸璇︽儏", text));
-                    for (let t of text.split("\n")) {
-                        if (t === "") continue;
-                        pushTBItems(tradeConsumerProtection.tradeConsumerService.nonService.items, createTBItem(t));
-                    }
-                }
-
-                setTBItems(consumerProtection.items, createTBItem("浠锋牸璇︽儏", text));
-                if (consumerProtection.serviceProtection)
-                    setTBItems(consumerProtection.serviceProtection.basicService.services, createTBItem("浠锋牸璇︽儏", [text]));
-
-            } catch (e) {
-                $.logErr(e, "handleGetdetail handle body error");
-            }
-
-            apiStack.value = JSON.stringify(value);
-        }
-        $.done({ body: JSON.stringify(body) });
-    });
-}
-
-function pushTBItems(items, item) {
-    items.push(item);
-}
-
-function setTBItems(items, item) {
-    items.unshift(item);
-}
-
-function createTBItem(title, desc) {
-    return {
-        title: title,
-        name: title,
-        type: 0,
-        icon: "https://s2.ax1x.com/2020/02/16/3STeIJ.png",
-        desc: desc
-    }
-}
-
-function createTBCard(title, text) {
-    return {
-        bgIcon: "https://img.alicdn.com/imgextra/i4/O1CN011N7vad1qNigfsKeBP_!!6000000005484-2-tps-710-60.png?getAvatar=avatar",
-        icon: "https://s2.ax1x.com/2020/02/16/3STeIJ.png",
-        text: text,
-        textColor: "#FF3000",
-        title: title
-    }
-}
-
-
-function handleRequest(id, type, callback, errorCallback) {
-    request_history_price(id, type, data => {
+function cookieParse(str) {
+    if (typeof str == "string") {
         try {
-            let text = handleBijiago(data);
-            callback(text);
+            return JSON.parse(str);
         } catch (e) {
-            $.logErr(e, "request_history_price Callback Error");
-            $.done({ body: JSON.stringify(JSON.parse(resp.body)) });
+            console.log(e);
+            $.msg($.name, "", "请勿随意在BoxJs输入框修改内容\n建议通过脚本去获取cookie");
+            return [];
+        }
+    }
+}
+
+cookie = cookie ? cookie : cookiesArr[0];
+
+if (url.indexOf(path1) != -1) {
+    let obj = JSON.parse(body);
+    delete obj.serverConfig.httpdns;
+    delete obj.serverConfig.dnsvip;
+    delete obj.serverConfig.dnsvip_v6;
+    $done({ body: JSON.stringify(obj) });
+}
+
+if (url.indexOf(path3) != -1) {
+    let obj = JSON.parse(body);
+    let JDHttpToolKit = obj.data.JDHttpToolKit;
+    let jCommandConfig = obj.data.jCommandConfig;
+    if (JDHttpToolKit) {
+        delete obj.data.JDHttpToolKit.httpdns;
+        delete obj.data.JDHttpToolKit.dnsvipV6;
+    }
+    if (jCommandConfig) {
+        delete obj.data.jCommandConfig.httpdnsConfig;
+    }
+    $done({ body: JSON.stringify(obj) });
+}
+
+if (url.indexOf(path2) != -1 || url.indexOf(path4) != -1) {
+    if (!$tool.isQuanX) {
+        $done({ body });
+    }
+    let obj = JSON.parse(body);
+    const floors = obj.floors;
+    const commodity_info = floors[floors.length - 1];
+    const others = obj.others;
+    const domain = obj.domain;
+    const shareUrl =
+        url.indexOf(path4) != -1
+            ? domain.h5Url
+            : url.indexOf(path2h) != -1
+            ? others.property.shareUrl
+            : commodity_info.data.property.shareUrl;
+    autoScheme = url.indexOf(path2h) != -1 ? "openApp.jdHealth" : "openjd";
+    //const scheme = !autoChoose ? chooseScheme : url.indexOf(path4) != -1 ? "openapp.jdpingou" : url.indexOf(path2h) != -1 ? "openApp.jdHealth" : url.indexOf("lite_"+path3) != -1 ? "openjdlite" : "openjd";
+    let getHistory = request_history_price(shareUrl);
+    let convertURL = "";
+    let jxconvertURL = "";
+    if (useConvert) {
+        convertURL = convert(shareUrl);
+        jxconvertURL = url.indexOf(path4) != -1 ? convert(shareUrl, true) : undefined;
+    }
+    Promise.all([getHistory, convertURL, jxconvertURL])
+        .then((detail) => {
+            let msg = "";
+            if (detail[1] == "useJXOrigin") detail[1] = detail[2];
+            if (detail[0].lower_tip) {
+                msg += detail[0].lower_tip;
+                let convertmsg = detail[1].convertURL ? detail[1].msg : detail[1];
+                msg += convertmsg ? convertmsg : "😤 该商品暂无返利";
+                // msg += "\n" + detail[0].historydetail;
+            } else {
+                let convertmsg = detail[1].convertURL ? detail[1].msg : detail[1];
+                msg += convertmsg ? convertmsg : "";
+                msg += detail[0];
+            }
+            let oprnUrl = detail[1].convertURL ? detail[1].convertURL : "";
+            $tool.notify("京东价格/返利", "", msg, oprnUrl);
+        })
+        .finally(() => {
+            $done({ body });
+        });
+}
+
+function lowerMsgs(data) {
+    const lower = data.lowerPriceyh;
+    const lowerDate = dateFormat(data.lowerDateyh);
+        const lowerMsg = "〽️ 历史最低 ➩ " + String(lower) + " ║" + `🗓 ${lowerDate}`;
+    return lowerMsg;
+}
+
+function priceSummary(data) {
+    let summary = "";
+    let listPriceDetail = data.PriceRemark.ListPriceDetail.slice(0, 4);
+    let list = listPriceDetail.concat(historySummary(data.single));
+    list.forEach((item, index) => {
+        if (item.Name == "双11价格") {
+            item.Name = "双十一价格";
+        } else if (item.Name == "618价格") {
+            item.Name = "六一八价格";
+        }
+        let price = String(parseInt(item.Price.substr(1)));
+        summary += `\n${item.Name}   ${isNaN(price) ? "-" : "¥" + price}   ${item.Date}   ${item.Difference}`;
+    });
+    return summary;
+}
+
+function historySummary(single) {
+    const rexMatch = /\[.*?\]/g;
+    const rexExec = /\[(.*),(.*),"(.*)".*\]/;
+    let currentPrice, lowest30, lowest90, lowest180, lowest360;
+    let list = single.jiagequshiyh.match(rexMatch);
+    list = list.reverse().slice(0, 360);
+    list.forEach((item, index) => {
+        if (item.length > 0) {
+            const result = rexExec.exec(item);
+            const dateUTC = new Date(eval(result[1]));
+            const date = dateUTC.format("yyyy-MM-dd");
+            let price = parseFloat(result[2]);
+            if (index == 0) {
+                currentPrice = price;
+                lowest30 = {
+                    Name: "三十天最低",
+                    Price: `¥${String(price)}`,
+                    Date: date,
+                    Difference: difference(currentPrice, price),
+                    price,
+                };
+                lowest90 = {
+                    Name: "九十天最低",
+                    Price: `¥${String(price)}`,
+                    Date: date,
+                    Difference: difference(currentPrice, price),
+                    price,
+                };
+                lowest180 = {
+                    Name: "一百八最低",
+                    Price: `¥${String(price)}`,
+                    Date: date,
+                    Difference: difference(currentPrice, price),
+                    price,
+                };
+                lowest360 = {
+                    Name: "三百六最低",
+                    Price: `¥${String(price)}`,
+                    Date: date,
+                    Difference: difference(currentPrice, price),
+                    price,
+                };
+            }
+            if (index < 30 && price < lowest30.price) {
+                lowest30.price = price;
+                lowest30.Price = `¥${String(price)}`;
+                lowest30.Date = date;
+                lowest30.Difference = difference(currentPrice, price);
+            }
+            if (index < 90 && price < lowest90.price) {
+                lowest90.price = price;
+                lowest90.Price = `¥${String(price)}`;
+                lowest90.Date = date;
+                lowest90.Difference = difference(currentPrice, price);
+            }
+            if (index < 180 && price < lowest180.price) {
+                lowest180.price = price;
+                lowest180.Price = `¥${String(price)}`;
+                lowest180.Date = date;
+                lowest180.Difference = difference(currentPrice, price);
+            }
+            if (index < 360 && price < lowest360.price) {
+                lowest360.price = price;
+                lowest360.Price = `¥${String(price)}`;
+                lowest360.Date = date;
+                lowest360.Difference = difference(currentPrice, price);
+            }
         }
     });
+    return [lowest30, lowest90, lowest180];
 }
 
-function handleBijiago(data) {
-
-    if (!data.success)
-        return data.msg;
-
-    let obj = data.data;
-
-    let store = obj['store'][1];
-
-    let historyObj = {
-        tips: {
-            "type": "text",
-            "title": "Tips:",
-            "text": obj['analysis']['tip'],
-        },
-        range: {
-            "type": "text",
-            "title": "浠锋牸鍖洪棿",
-            "text": store['price_range'],
-        },
-        now: {
-            "type": "price",
-            "title": "褰撳墠浠�",
-            "price": Math.round(store['last_price'] / 100),
-            "date": "-"
-        },
-        highest: {
-            "type": "price",
-            "title": "鏈€楂樹环",
-            "price": Math.round(store['highest']),
-            "date": time2str(store['max_stamp'] * 1000)
-        },
-        lowest: {
-            "type": "price",
-            "title": "鏈€浣庝环",
-            "price": Math.round(store['lowest']),
-            "date": time2str(parseInt(store['min_stamp']) * 1000)
-        },
-        day30: {
-            "type": "price",
-            "title": "涓夊崄澶�",
-            "price": -1,
-            "date": "-"
-        },
-        _618: {
-            "type": "price",
-            "title": "鍏竴鍏�",
-            "price": -1,
-            "date": "-"
-        },
-        _1111: {
-            "type": "price",
-            "title": "鍙屽崄涓€",
-            "price": -1,
-            "date": "-"
-        }
+function difference(currentPrice, price) {
+    let difference = sub(currentPrice, price);
+    if (difference == 0) {
+        return "-";
+    } else {
+        return `${difference > 0 ? "↑" : "↓"}${String(difference)}`;
     }
-
-    let beginDayTime = new Date(store['short_day_line_begin_time']);
-    let dayNum = getDaysBetween(beginDayTime, new Date());
-    let days = store['short_day_line'];
-
-    for (let i = 0; i < 30 - dayNum && i < days.length; ++i) {
-        let price = days[i];
-        if (i == 0) {
-            historyObj.day30['price'] = Math.round(price);
-            historyObj.day30['date'] = time2str(dateAddDays(beginDayTime, i));
-        }
-        if (price < historyObj.day30['price']) {
-            historyObj.day30['price'] = Math.round(price);
-            historyObj.day30['date'] = time2str(dateAddDays(beginDayTime, i));
-        }
-    }
-
-    for (let promo_day of obj['analysis']['promo_days']) {
-        let show = promo_day['show'];
-        let price = Math.round(promo_day['price']);
-        let date = promo_day['date'];
-        if (promo_day['show'].indexOf("618浠锋牸") != -1) {
-            historyObj._618['price'] = price;
-            historyObj._618['date'] = date;
-        } else if (promo_day['show'].indexOf("鍙�11浠锋牸") != -1) {
-            historyObj._1111['price'] = price;
-            historyObj._1111['date'] = date;
-        } else
-            historyObj.set(show, {
-                "type": "price",
-                "title": show,
-                "price": price,
-                "date": date
-            });
-    }
-
-    let result = '';
-
-    for (var key in historyObj) {
-        let nowItem = historyObj.now;
-        let item = historyObj[key];
-
-        if (item.type == "price") {
-            let diff = priceDiff(nowItem.price, item.price);
-            result += `${space(item.title, 3 + 4)}${space(item.price, 10)}${space(item.date, 14)}${diff}\n`;
-        } else if (item.type == "text") {
-            result += `${item.title} ${item.text}\n`;
-        }
-    }
-
-    return result;
 }
 
-function request_history_price(id, type, callback) {
+function sub(arg1, arg2) {
+    return add(arg1, -Number(arg2), arguments[2]);
+}
 
-    let item_url = "";
+function add(arg1, arg2) {
+    (arg1 = arg1.toString()), (arg2 = arg2.toString());
+    var arg1Arr = arg1.split("."),
+        arg2Arr = arg2.split("."),
+        d1 = arg1Arr.length == 2 ? arg1Arr[1] : "",
+        d2 = arg2Arr.length == 2 ? arg2Arr[1] : "";
+    var maxLen = Math.max(d1.length, d2.length);
+    var m = Math.pow(10, maxLen);
+    var result = Number(((arg1 * m + arg2 * m) / m).toFixed(maxLen));
+    var d = arguments[2];
+    return typeof d === "number" ? Number(result.toFixed(d)) : result;
+}
 
-    if (type === "JD") {
-        item_url = `https://item.jd.com/${id}.html`;
-    } else if (type === "TB") {
-        item_url = `https://detail.tmall.com/item.htm?id=${id}`;
-    }
-
-    const option = {
-        url: `https://browser.bijiago.com/extension/price_towards?url=${encodeURIComponent(item_url)}&format=jsonp&union=union_bijiago&from_device=bijiago&version=${new Date().getTime()}`,
-        headers: {
-            'Connection': 'keep-alive',
-            'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90"',
-            'sec-ch-ua-mobile': '?0',
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36',
-            'Accept': '*/*',
-            'Sec-Fetch-Site': 'cross-site',
-            'Sec-Fetch-Mode': 'no-cors',
-            'Sec-Fetch-Dest': 'script',
-            'Referer': item_url,
-            'Accept-Language': 'zh-CN,zh;q=0.9'
-        },
-        timeout: 2000
-    };
-
-    $.get(option, (err, rsp, data) => {
-        let result = {
-            success: true,
-            msg: "Success",
-            data: JSON.parse(data)
+function request_history_price(share_url) {
+    return new Promise((resolve) => {
+        let options = {
+            url: "https://apapia-history.manmanbuy.com/ChromeWidgetServices/WidgetServices.ashx",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+                "User-Agent":
+                    "Mozilla/5.0 (iPhone; CPU iPhone OS 13_1_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 - mmbWebBrowse - ios",
+            },
+            body: "methodName=getHistoryTrend&p_url=" + encodeURIComponent(share_url),
         };
-
-        if (err) {
-            result.success = false;
-            result.msg = "鑾峰彇浠锋牸淇℃伅澶辫触";
-            result.data = err;
-        }
-
-        if (!result.success) {
-            $.log(`Error:${result}`);
-            $.msg("Error", result.msg, err);
-        }
-
-        callback(result);
+        $tool.post(options, function (error, response, data) {
+            if (!error) {
+                data = JSON.parse(data);
+                if (consolelog) console.log("Data:\n" + data);
+                if (data.ok == 1 && data.single) {
+                    const lower = lowerMsgs(data.single);
+                    const detail = priceSummary(data);
+                    const tip = data.PriceRemark.Tip;
+                    let r = {};
+                    r.lower_tip = `${lower}\n`;
+                    r.historydetail = `${detail.substr(1)}`;
+                    resolve(r);
+                }
+                if (data.ok == 0 && data.msg.length > 0) {
+                    let e = `😳 ${data.msg}`;
+                    resolve(e);
+                }
+            } else {
+                if (consolelog) console.log("JD History Error:\n" + error);
+                resolve();
+            }
+        });
     });
 }
 
-function Qs2Json(url) {
-    var search = url.substring(url.lastIndexOf("?") + 1);
-    var obj = {};
-    var reg = /([^?&=]+)=([^?&=]*)/g;
-    search.replace(reg, function (rs, $1, $2) {
-        var name = decodeURIComponent($1);
-        var val = decodeURIComponent($2);
-        val = String(val);
-        obj[name] = val;
-        return rs;
+function convert(url, isOriginJXURL) {
+    return new Promise((resolve) => {
+        if (!cookie) {
+            $tool.setCache("false", "jfUseConvert");
+            resolve("");
+        } else {
+            let id;
+            if (
+                url.includes("item.m.jd") ||
+                url.includes("item.jd") ||
+                (!autoChoose && chooseScheme == "openApp.jdHealth")
+            ) {
+                id = url.match(/(\d+)\.html/)[1];
+                url = `https:\/\/item.m.jd.com\/product\/${id}.html`;
+            } else if (url.includes("m.jingxi") || url.includes("wq.jd.com")) {
+                id = url.match(/sku=(\d+)/)[1];
+                url = `https:\/\/wq.jd.com\/item\/view?sku=${id}`;
+                if (isOriginJXURL || (!autoChoose && chooseScheme == "openjdlite"))
+                    url = `https:\/\/m.jingxi.com\/item\/jxview?sku=${id}`;
+                autoScheme = "openapp.jdpingou";
+            } else if (url.includes("kpl.m.jd")) {
+                id = url.match(/wareId=(\d+)/)[1];
+                url = `https:\/\/kpl.m.jd.com\/product?wareId=${id}`;
+                autoScheme = jsapp ? "openjdlite" : "browser";
+            } else {
+                url = url;
+                //url = url.replace(/\//g, "\\/");
+            }
+            let body = {
+                funName: "getSuperClickUrl",
+                param: {
+                    materialInfo: url,
+                    ext1: "200|100_3|",
+                },
+            };
+            let t = +new Date();
+            let options = {
+                url: `https://api.m.jd.com/api?functionId=ConvertSuperLink&appid=u&_=${t}&body=${encodeURI(
+                    JSON.stringify(body)
+                )}&loginType=2`,
+                headers: {
+                    "Accept-Encoding": "gzip,compress,br,deflate",
+                    Connection: "keep-alive",
+                    Cookie: cookie,
+                    Host: "api.m.jd.com",
+                    Referer: "https://servicewechat.com/wxf463e50cd384beda/114/page-frame.html",
+                    "User-Agent":
+                        "Mozilla/5.0 (iPhone; CPU iPhone OS 13_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.4(0x18000429) NetType/WIFI Language/zh_CN",
+                    "content-type": "application/json",
+                },
+            };
+            $tool.get(options, function (err, resp, data) {
+                if (!err) {
+                    data = JSON.parse(data);
+                    console.log("JD Convert Data:\n" + data);
+                    if (data.code === 200) {
+                        let r = {};
+                        let scheme = autoChoose ? autoScheme : chooseScheme;
+                        if (data.data.promotionUrl) {
+                            r.msg = `💴 预计返利 ➩ ${data.data.wlCommission}`+ " ║" + `🏷 返利率 ➩ ${data.data.wlCommissionShare}%`;
+                            r.convertURL =
+                                scheme == "browser"
+                                    ? chooseBrowser + data.data.promotionUrl
+                                    : `${scheme}://virtual?params=%7B%22category%22:%22jump%22,%22des%22:%22m%22,%22sourceValue%22:%22babel-act%22,%22sourceType%22:%22babel%22,%22url%22:%22${data.data.promotionUrl}%22%7D`;
+                        } else {
+                            r.msg = `😤 该商品暂无详细返利，${data.data.formatContext.trim()}`;
+                            r.convertURL =
+                                scheme == "browser"
+                                    ? chooseBrowser + data.data.originalContext
+                                    : `${scheme}://virtual?params=%7B%22category%22:%22jump%22,%22des%22:%22m%22,%22sourceValue%22:%22babel-act%22,%22sourceType%22:%22babel%22,%22url%22:%22${data.data.originalContext}%22%7D`;
+                        }
+                        resolve(r);
+                    } else if (data.code === 105) {
+                        if (autoScheme == "openapp.jdpingou") resolve("useJXOrigin");
+                        else resolve("");
+                    } else if (data.code === 430) {
+                        $tool.setCache("false", "jfUseConvert");
+                        resolve("");
+                    } else {
+                        resolve(JSON.stringify(data));
+                    }
+                } else {
+                    console.log("JD Convert Error:\n" + err);
+                    resolve();
+                }
+            });
+        }
     });
-    return obj;
 }
 
-function Json2Qs(json) {
-    var temp = [];
-    for (var k in json) {
-        temp.push(k + "=" + json[k]);
-    }
-    return temp.join("&");
+function dateFormat(cellval) {
+    const date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
+    const month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+    const currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    return date.getFullYear() + "-" + month + "-" + currentDate;
 }
 
-function time2str(date = +new Date()) {
-    return new Date(date).toJSON().substr(0, 19).replace('T', ' ').split(' ')[0].replace(/\./g, '-');
-}
-
-function getDaysBetween(startDate, endDate) {
-    if (startDate > endDate) {
-        return 0;
-    }
-    if (startDate == endDate) {
-        return 1;
-    }
-    var days = (endDate - startDate) / (1 * 24 * 60 * 60 * 1000);
-    return Math.round(days);
-}
-
-function dateAddDays(date, dayCount) {
-    return new Date((date / 1000 + (86400 * dayCount)) * 1000);
-}
-
-function dayDiff(date) {
-    return parseInt((new Date() - new Date(date)) / (1000 * 60 * 60 * 24) + '')
-}
-
-function priceDiff(now, old) {
-    if (typeof old !== 'number')
-        return '-'
-    let diff = old - now;
-    if (diff === 0)
-        return '-'
-    return diff > 0 ? `鈫�${Math.round(diff)}` : `鈫�${Math.round(Math.abs(diff))}`;
-}
-
-function space(str, len) {
-    let blank = "";
-    for (let i = 0; i < len - String(str).length; i++) {
-        blank += " ";
-    }
-    return str + blank;
+function tool() {
+    const isLoon = typeof $loon != "undefined";
+    const isSurge = typeof $httpClient != "undefined";
+    const isQuanX = typeof $task != "undefined";
+    const node = (() => {
+        if (typeof require == "function") {
+            const request = require("request");
+            return { request };
+        } else {
+            return null;
+        }
+    })();
+    const notify = (title, subtitle, content, open_url) => {
+        if (isSurge && !isLoon) {
+            let opts = {};
+            if (open_url) opts["url"] = open_url;
+            if (JSON.stringify(opts) == "{}") {
+                $notification.post(title, subtitle, content);
+            } else {
+                $notification.post(title, subtitle, content, opts);
+            }
+        }
+        if (isQuanX) {
+            let opts = {};
+            if (open_url) opts["open-url"] = open_url;
+            if (JSON.stringify(opts) == "{}") {
+                $notify(title, subtitle, content);
+            } else {
+                $notify(title, subtitle, content, opts);
+            }
+        }
+        if (isLoon) {
+            let opts = {};
+            if (open_url) opts["openUrl"] = open_url;
+            if (JSON.stringify(opts) == "{}") {
+                $notification.post(title, subtitle, content);
+            } else {
+                $notification.post(title, subtitle, content, opts);
+            }
+        }
+        if (node) {
+            let content_Node = content + (open_url == undefined ? "" : `\n\n跳转链接：${open_url}`);
+            console.log(`${title}\n${subtitle}\n${content_Node}\n\n`);
+        }
+    };
+    const setCache = (value, key) => {
+        if (isQuanX) return $prefs.setValueForKey(value, key);
+        if (isSurge) return $persistentStore.write(value, key);
+    };
+    const getCache = (key) => {
+        if (isQuanX) return $prefs.valueForKey(key);
+        if (isSurge) return $persistentStore.read(key);
+    };
+    const adapterStatus = (response) => {
+        if (response.status) {
+            response["statusCode"] = response.status;
+        } else if (response.statusCode) {
+            response["status"] = response.statusCode;
+        }
+        return response;
+    };
+    const get = (options, callback) => {
+        if (isQuanX) {
+            if (typeof options == "string") options = { url: options };
+            options["method"] = "GET";
+            $task.fetch(options).then(
+                (response) => {
+                    callback(null, adapterStatus(response), response.body);
+                },
+                (reason) => callback(reason.error, null, null)
+            );
+        }
+        if (isSurge)
+            $httpClient.get(options, (error, response, body) => {
+                callback(error, adapterStatus(response), body);
+            });
+        if (node) {
+            node.request(options, (error, response, body) => {
+                callback(error, adapterStatus(response), body);
+            });
+        }
+    };
+    const post = (options, callback) => {
+        if (isQuanX) {
+            if (typeof options == "string") options = { url: options };
+            options["method"] = "POST";
+            $task.fetch(options).then(
+                (response) => {
+                    callback(null, adapterStatus(response), response.body);
+                },
+                (reason) => callback(reason.error, null, null)
+            );
+        }
+        if (isSurge) {
+            $httpClient.post(options, (error, response, body) => {
+                callback(error, adapterStatus(response), body);
+            });
+        }
+        if (node) {
+            node.request.post(options, (error, response, body) => {
+                callback(error, adapterStatus(response), body);
+            });
+        }
+    };
+    return { isQuanX, isSurge, notify, setCache, getCache, get, post };
 }
 
 Array.prototype.insert = function (index, item) {
     this.splice(index, 0, item);
 };
 
-function Base64() {
-    // private property
-    _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-    // public method for encoding
-    this.encode = function (input) {
-        var output = "";
-        var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
-        var i = 0;
-        input = _utf8_encode(input);
-        while (i < input.length) {
-            chr1 = input.charCodeAt(i++);
-            chr2 = input.charCodeAt(i++);
-            chr3 = input.charCodeAt(i++);
-            enc1 = chr1 >> 2;
-            enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-            enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-            enc4 = chr3 & 63;
-            if (isNaN(chr2)) {
-                enc3 = enc4 = 64;
-            } else if (isNaN(chr3)) {
-                enc4 = 64;
-            }
-            output = output +
-                _keyStr.charAt(enc1) + _keyStr.charAt(enc2) +
-                _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
-        }
-        return output;
-    }
-    // public method for decoding
-    this.decode = function (input) {
-        var output = "";
-        var chr1, chr2, chr3;
-        var enc1, enc2, enc3, enc4;
-        var i = 0;
-        input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-        while (i < input.length) {
-            enc1 = _keyStr.indexOf(input.charAt(i++));
-            enc2 = _keyStr.indexOf(input.charAt(i++));
-            enc3 = _keyStr.indexOf(input.charAt(i++));
-            enc4 = _keyStr.indexOf(input.charAt(i++));
-            chr1 = (enc1 << 2) | (enc2 >> 4);
-            chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-            chr3 = ((enc3 & 3) << 6) | enc4;
-            output = output + String.fromCharCode(chr1);
-            if (enc3 != 64) {
-                output = output + String.fromCharCode(chr2);
-            }
-            if (enc4 != 64) {
-                output = output + String.fromCharCode(chr3);
-            }
-        }
-        output = _utf8_decode(output);
-        return output;
-    }
-    // private method for UTF-8 encoding
-    _utf8_encode = function (string) {
-        string = string.replace(/\r\n/g, "\n");
-        var utftext = "";
-        for (var n = 0; n < string.length; n++) {
-            var c = string.charCodeAt(n);
-            if (c < 128) {
-                utftext += String.fromCharCode(c);
-            } else if ((c > 127) && (c < 2048)) {
-                utftext += String.fromCharCode((c >> 6) | 192);
-                utftext += String.fromCharCode((c & 63) | 128);
+Date.prototype.format = function (fmt) {
+    var o = {
+        "y+": this.getFullYear(),
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
+        "q+": Math.floor((this.getMonth() + 3) / 3),
+        "S+": this.getMilliseconds(),
+    };
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(fmt)) {
+            if (k == "y+") {
+                fmt = fmt.replace(RegExp.$1, ("" + o[k]).substr(4 - RegExp.$1.length));
+            } else if (k == "S+") {
+                var lens = RegExp.$1.length;
+                lens = lens == 1 ? 3 : lens;
+                fmt = fmt.replace(RegExp.$1, ("00" + o[k]).substr(("" + o[k]).length - 1, lens));
             } else {
-                utftext += String.fromCharCode((c >> 12) | 224);
-                utftext += String.fromCharCode(((c >> 6) & 63) | 128);
-                utftext += String.fromCharCode((c & 63) | 128);
-            }
-
-        }
-        return utftext;
-    }
-    // private method for UTF-8 decoding
-    _utf8_decode = function (utftext) {
-        var string = "";
-        var i = 0;
-        var c = c1 = c2 = 0;
-        while (i < utftext.length) {
-            c = utftext.charCodeAt(i);
-            if (c < 128) {
-                string += String.fromCharCode(c);
-                i++;
-            } else if ((c > 191) && (c < 224)) {
-                c2 = utftext.charCodeAt(i + 1);
-                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
-                i += 2;
-            } else {
-                c2 = utftext.charCodeAt(i + 1);
-                c3 = utftext.charCodeAt(i + 2);
-                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
-                i += 3;
+                fmt = fmt.replace(
+                    RegExp.$1,
+                    RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length)
+                );
             }
         }
-        return string;
     }
-}
-
-function initScript() {
-    try {
-        checkVersion(handleJobs);
-    } catch (e) {
-        $.logErr(e, "initScript Error");
-        $.done();
-    }
-}
-
-function handleJobs() {
-    try {
-        let url = res.url;
-
-        let enable_jobs = [];
-
-        //Handle enable job
-        for (let job of Jobs) {
-            if (job.status === Status.Enable) {
-                enable_jobs.push(job);
-            }
-        }
-
-        //Init None
-        for (let job of Jobs) {
-            if (job.type !== Type.Init) continue;
-            if (job.matchType !== MatchType.None) continue;
-            handleJob(job);
-        }
-
-        //Init Match
-        for (let job of Jobs) {
-            if (job.type !== Type.Init) continue;
-            if (job.matchType === MatchType.None) continue;
-            if (isMatch(job, url)) {
-                handleJob(job);
-            }
-        }
-
-        //Handle Fun
-        let isMatchHandleFun = false;
-        for (let job of Jobs) {
-            if (job.type !== Type.HandleFun) continue;
-            if (job.matchType === MatchType.None) continue;
-            if (isMatch(job, url)) {
-                isMatchHandleFun = true;
-                handleJob(job);
-            }
-        }
-
-        //Handle Default
-        if (!isMatchHandleFun) {
-            for (let job of Jobs) {
-                if (job.type !== Type.Default) continue;
-                if (isMatch(job, url)) {
-                    handleJob(job);
-                }
-            }
-        }
-    } catch (e) {
-        $.logErr(e, "handleJobs Error");
-        $.done();
-    }
-}
-
-function isMatch(job, url) {
-    if (job.matchType === MatchType.None) {
-        return true;
-    } else if (job.matchType === MatchType.RegExp) {
-        return url.search(job.keyword) !== -1;
-    } else if (job.matchType === MatchType.Contains) {
-        return url.indexOf(job.keyword) !== -1;
-    } else if (job.matchType === MatchType.FullMatch) {
-        return job.keyword === url;
-    }
-    return false;
-}
-
-function handleJob(job) {
-    try {
-        $.log(`[Handle Job:${job.name}] Start Handle Job`);
-
-        job.fun();
-
-        $.log(`[Handle Job:${job.name}] Success Handle Job`);
-    } catch (e) {
-        $.logErr(e, `[Handle Job:${job.name}] Handle Job Error`);
-        $.done();
-    }
-}
-
-function checkVersion(callback = () => { }) {
-    let checkVersionKey = `time_${ScriptIdentifier}_checkVersion_lastTime`;
-    let nowTime = new Date().getTime();
-    let isRun = true;
-    let lastTime = $.getdata(checkVersionKey);
-
-    if (lastTime) {
-        lastTime = parseInt(lastTime);
-        $.log("check Version lastTime:" + lastTime);
-        if ((nowTime - lastTime) / 1 / 24 / 60 / 60 / 1000 > 1) {
-            isRun = true;
-        } else {
-            isRun = false;
-        }
-    } else {
-        isRun = true;
-    }
-
-    if (isRun) {
-        $.log("check Version run");
-        $.setdata(String(nowTime), checkVersionKey);
-        $.get({ url: `${ScriptUrl}/config.json`, timeout: 3000 }, (err, resp, data) => {
-
-            if (err) {
-                $.log("check Version Error:" + err);
-                return;
-            }
-
-            try {
-                let obj = JSON.parse(data);
-                if (ScriptVersion !== obj.version)
-                    $.msg(`鑴氭湰:${ScriptName} 鍙戠幇鏂扮増鏈琡, `鐗堟湰鍙凤細${obj.version}`, `鏇存柊鍐呭锛�${obj.msg}`);
-            } catch (e) {
-                $.logErr(e, resp);
-            } finally {
-                callback();
-            }
-        })
-    } else {
-        callback();
-    }
-}
-
-function isUndefined(obj) {
-    return typeof obj === "undefined";
-}
-
-function isNull(obj) {
-    return obj === null;
-}
-
-function Env(t, e) { class s { constructor(t) { this.env = t } send(t, e = "GET") { t = "string" == typeof t ? { url: t } : t; let s = this.get; return "POST" === e && (s = this.post), new Promise((e, i) => { s.call(this, t, (t, s, r) => { t ? i(t) : e(s) }) }) } get(t) { return this.send.call(this.env, t) } post(t) { return this.send.call(this.env, t, "POST") } } return new class { constructor(t, e) { this.name = t, this.http = new s(this), this.data = null, this.dataFile = "box.dat", this.logs = [], this.isMute = !1, this.isNeedRewrite = !1, this.logSeparator = "\n", this.startTime = (new Date).getTime(), Object.assign(this, e), this.log("", `\ud83d\udd14${this.name}, \u5f00\u59cb!`) } isNode() { return "undefined" != typeof module && !!module.exports } isQuanX() { return "undefined" != typeof $task } isSurge() { return "undefined" != typeof $httpClient && "undefined" == typeof $loon } isLoon() { return "undefined" != typeof $loon } isShadowrocket() { return "undefined" != typeof $rocket } toObj(t, e = null) { try { return JSON.parse(t) } catch { return e } } toStr(t, e = null) { try { return JSON.stringify(t) } catch { return e } } getjson(t, e) { let s = e; const i = this.getdata(t); if (i) try { s = JSON.parse(this.getdata(t)) } catch { } return s } setjson(t, e) { try { return this.setdata(JSON.stringify(t), e) } catch { return !1 } } getScript(t) { return new Promise(e => { this.get({ url: t }, (t, s, i) => e(i)) }) } runScript(t, e) { return new Promise(s => { let i = this.getdata("@chavy_boxjs_userCfgs.httpapi"); i = i ? i.replace(/\n/g, "").trim() : i; let r = this.getdata("@chavy_boxjs_userCfgs.httpapi_timeout"); r = r ? 1 * r : 20, r = e && e.timeout ? e.timeout : r; const [o, h] = i.split("@"), a = { url: `http://${h}/v1/scripting/evaluate`, body: { script_text: t, mock_type: "cron", timeout: r }, headers: { "X-Key": o, Accept: "*/*" } }; this.post(a, (t, e, i) => s(i)) }).catch(t => this.logErr(t)) } loaddata() { if (!this.isNode()) return {}; { this.fs = this.fs ? this.fs : require("fs"), this.path = this.path ? this.path : require("path"); const t = this.path.resolve(this.dataFile), e = this.path.resolve(process.cwd(), this.dataFile), s = this.fs.existsSync(t), i = !s && this.fs.existsSync(e); if (!s && !i) return {}; { const i = s ? t : e; try { return JSON.parse(this.fs.readFileSync(i)) } catch (t) { return {} } } } } writedata() { if (this.isNode()) { this.fs = this.fs ? this.fs : require("fs"), this.path = this.path ? this.path : require("path"); const t = this.path.resolve(this.dataFile), e = this.path.resolve(process.cwd(), this.dataFile), s = this.fs.existsSync(t), i = !s && this.fs.existsSync(e), r = JSON.stringify(this.data); s ? this.fs.writeFileSync(t, r) : i ? this.fs.writeFileSync(e, r) : this.fs.writeFileSync(t, r) } } lodash_get(t, e, s) { const i = e.replace(/\[(\d+)\]/g, ".$1").split("."); let r = t; for (const t of i) if (r = Object(r)[t], void 0 === r) return s; return r } lodash_set(t, e, s) { return Object(t) !== t ? t : (Array.isArray(e) || (e = e.toString().match(/[^.[\]]+/g) || []), e.slice(0, -1).reduce((t, s, i) => Object(t[s]) === t[s] ? t[s] : t[s] = Math.abs(e[i + 1]) >> 0 == +e[i + 1] ? [] : {}, t)[e[e.length - 1]] = s, t) } getdata(t) { let e = this.getval(t); if (/^@/.test(t)) { const [, s, i] = /^@(.*?)\.(.*?)$/.exec(t), r = s ? this.getval(s) : ""; if (r) try { const t = JSON.parse(r); e = t ? this.lodash_get(t, i, "") : e } catch (t) { e = "" } } return e } setdata(t, e) { let s = !1; if (/^@/.test(e)) { const [, i, r] = /^@(.*?)\.(.*?)$/.exec(e), o = this.getval(i), h = i ? "null" === o ? null : o || "{}" : "{}"; try { const e = JSON.parse(h); this.lodash_set(e, r, t), s = this.setval(JSON.stringify(e), i) } catch (e) { const o = {}; this.lodash_set(o, r, t), s = this.setval(JSON.stringify(o), i) } } else s = this.setval(t, e); return s } getval(t) { return this.isSurge() || this.isLoon() ? $persistentStore.read(t) : this.isQuanX() ? $prefs.valueForKey(t) : this.isNode() ? (this.data = this.loaddata(), this.data[t]) : this.data && this.data[t] || null } setval(t, e) { return this.isSurge() || this.isLoon() ? $persistentStore.write(t, e) : this.isQuanX() ? $prefs.setValueForKey(t, e) : this.isNode() ? (this.data = this.loaddata(), this.data[e] = t, this.writedata(), !0) : this.data && this.data[e] || null } initGotEnv(t) { this.got = this.got ? this.got : require("got"), this.cktough = this.cktough ? this.cktough : require("tough-cookie"), this.ckjar = this.ckjar ? this.ckjar : new this.cktough.CookieJar, t && (t.headers = t.headers ? t.headers : {}, void 0 === t.headers.Cookie && void 0 === t.cookieJar && (t.cookieJar = this.ckjar)) } get(t, e = (() => { })) { t.headers && (delete t.headers["Content-Type"], delete t.headers["Content-Length"]), this.isSurge() || this.isLoon() ? (this.isSurge() && this.isNeedRewrite && (t.headers = t.headers || {}, Object.assign(t.headers, { "X-Surge-Skip-Scripting": !1 })), $httpClient.get(t, (t, s, i) => { !t && s && (s.body = i, s.statusCode = s.status), e(t, s, i) })) : this.isQuanX() ? (this.isNeedRewrite && (t.opts = t.opts || {}, Object.assign(t.opts, { hints: !1 })), $task.fetch(t).then(t => { const { statusCode: s, statusCode: i, headers: r, body: o } = t; e(null, { status: s, statusCode: i, headers: r, body: o }, o) }, t => e(t))) : this.isNode() && (this.initGotEnv(t), this.got(t).on("redirect", (t, e) => { try { if (t.headers["set-cookie"]) { const s = t.headers["set-cookie"].map(this.cktough.Cookie.parse).toString(); s && this.ckjar.setCookieSync(s, null), e.cookieJar = this.ckjar } } catch (t) { this.logErr(t) } }).then(t => { const { statusCode: s, statusCode: i, headers: r, body: o } = t; e(null, { status: s, statusCode: i, headers: r, body: o }, o) }, t => { const { message: s, response: i } = t; e(s, i, i && i.body) })) } post(t, e = (() => { })) { const s = t.method ? t.method.toLocaleLowerCase() : "post"; if (t.body && t.headers && !t.headers["Content-Type"] && (t.headers["Content-Type"] = "application/x-www-form-urlencoded"), t.headers && delete t.headers["Content-Length"], this.isSurge() || this.isLoon()) this.isSurge() && this.isNeedRewrite && (t.headers = t.headers || {}, Object.assign(t.headers, { "X-Surge-Skip-Scripting": !1 })), $httpClient[s](t, (t, s, i) => { !t && s && (s.body = i, s.statusCode = s.status), e(t, s, i) }); else if (this.isQuanX()) t.method = s, this.isNeedRewrite && (t.opts = t.opts || {}, Object.assign(t.opts, { hints: !1 })), $task.fetch(t).then(t => { const { statusCode: s, statusCode: i, headers: r, body: o } = t; e(null, { status: s, statusCode: i, headers: r, body: o }, o) }, t => e(t)); else if (this.isNode()) { this.initGotEnv(t); const { url: i, ...r } = t; this.got[s](i, r).then(t => { const { statusCode: s, statusCode: i, headers: r, body: o } = t; e(null, { status: s, statusCode: i, headers: r, body: o }, o) }, t => { const { message: s, response: i } = t; e(s, i, i && i.body) }) } } time(t, e = null) { const s = e ? new Date(e) : new Date; let i = { "M+": s.getMonth() + 1, "d+": s.getDate(), "H+": s.getHours(), "m+": s.getMinutes(), "s+": s.getSeconds(), "q+": Math.floor((s.getMonth() + 3) / 3), S: s.getMilliseconds() }; /(y+)/.test(t) && (t = t.replace(RegExp.$1, (s.getFullYear() + "").substr(4 - RegExp.$1.length))); for (let e in i) new RegExp("(" + e + ")").test(t) && (t = t.replace(RegExp.$1, 1 == RegExp.$1.length ? i[e] : ("00" + i[e]).substr(("" + i[e]).length))); return t } msg(e = t, s = "", i = "", r) { const o = t => { if (!t) return t; if ("string" == typeof t) return this.isLoon() ? t : this.isQuanX() ? { "open-url": t } : this.isSurge() ? { url: t } : void 0; if ("object" == typeof t) { if (this.isLoon()) { let e = t.openUrl || t.url || t["open-url"], s = t.mediaUrl || t["media-url"]; return { openUrl: e, mediaUrl: s } } if (this.isQuanX()) { let e = t["open-url"] || t.url || t.openUrl, s = t["media-url"] || t.mediaUrl; return { "open-url": e, "media-url": s } } if (this.isSurge()) { let e = t.url || t.openUrl || t["open-url"]; return { url: e } } } }; if (this.isMute || (this.isSurge() || this.isLoon() ? $notification.post(e, s, i, o(r)) : this.isQuanX() && $notify(e, s, i, o(r))), !this.isMuteLog) { let t = ["", "==============\ud83d\udce3\u7cfb\u7edf\u901a\u77e5\ud83d\udce3=============="]; t.push(e), s && t.push(s), i && t.push(i), console.log(t.join("\n")), this.logs = this.logs.concat(t) } } log(...t) { t.length > 0 && (this.logs = [...this.logs, ...t]), console.log(t.join(this.logSeparator)) } logErr(t, e) { const s = !this.isSurge() && !this.isQuanX() && !this.isLoon(); s ? this.log("", `\u2757\ufe0f${this.name}, \u9519\u8bef!`, t.stack) : this.log("", `\u2757\ufe0f${this.name}, \u9519\u8bef!`, t) } wait(t) { return new Promise(e => setTimeout(e, t)) } done(t = {}) { const e = (new Date).getTime(), s = (e - this.startTime) / 1e3; this.log("", `\ud83d\udd14${this.name}, \u7ed3\u675f! \ud83d\udd5b ${s} \u79d2`), this.log(), (this.isSurge() || this.isQuanX() || this.isLoon()) && $done(t) } }(t, e) }
+    return fmt;
+};
