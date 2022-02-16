@@ -243,7 +243,7 @@ DOMAIN-SUFFIX,beacon.sina.com.cn,REJECT
 DOMAIN,adimg.uve.weibo.com,REJECT
 DOMAIN,adimg.vue.weibo.com,REJECT
 DOMAIN,u1.img.mobile.sina.cn,REJECT
-DOMAIN,sax.sina.com,cn,REJECT
+DOMAIN,sax.sina.com.cn,REJECT
 DOMAIN,saxs.sina.com.cn,REJECT
 DOMAIN,saxn.sina.com.cn,REJECT
 # > SOHU
