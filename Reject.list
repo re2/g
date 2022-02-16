@@ -645,7 +645,6 @@ DOMAIN-SUFFIX,socialbakers.com,REJECT
 DOMAIN-SUFFIX,sociaplus.com,REJECT
 DOMAIN-SUFFIX,stathat.com,REJECT
 DOMAIN-SUFFIX,stats-locations.com,REJECT
-DOMAIN-SUFFIX,tagcom,REJECTmander.com,REJECT
 DOMAIN-SUFFIX,tailtarget.com,REJECT
 DOMAIN-SUFFIX,tapad.com,REJECT
 DOMAIN-SUFFIX,tapfiliate.com,REJECT
