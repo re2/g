@@ -275,8 +275,8 @@ DOMAIN,pgdt.ugdtimg.com,REJECT
 DOMAIN,splashqqlive.gtimg.com,REJECT
 DOMAIN,vv.video.qq.com,REJECT
 DOMAIN,wa.gtimg.com,REJECT
-# DOMAIN,wxsnsdy.wxs.qq.com,REJECT
-# DOMAIN,wxsnsdythumb.wxs.qq.com,REJECT
+DOMAIN,wxsnsdy.wxs.qq.com,REJECT
+DOMAIN,wxsnsdythumb.wxs.qq.com,REJECT
 # > Tencent Music (TME)
 DOMAIN,ad.tencentmusic.com,REJECT
 DOMAIN,adstats.tencentmusic.com,REJECT
