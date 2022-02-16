@@ -316,8 +316,6 @@ DOMAIN,adsdk.vivo.com.cn
 DOMAIN,adsstatic.vivo.com.cn
 DOMAIN,adxlog.vivo.com.cn
 DOMAIN,vcardsdkservice.vivo.com.cn
-DOMAIN-KEYWORD,stsdk.vivo.com.cn
-DOMAIN-KEYWORD,stsdk.vivoglobal.com
 # > Viber
 DOMAIN,ads.viber.com
 DOMAIN,ads-d.viber.com
