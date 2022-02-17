@@ -1,15 +1,5 @@
 # Update > 2022.1.26https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/AdRule.list,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Quantumult/Filter/Guard/Advertising.list,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Quantumult/Filter/Guard/Hijacking.list,https://raw.githubusercontent.com/DivineEngine/Profiles/master/Quantumult/Filter/Guard/Privacy.list
 
-# 知乎去广告，以下规则请放置在filter_local最顶部
-IP-CIDR,118.89.204.198/32,REJECT
-IP6-CIDR,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT
-DOMAIN,118.89.204.198,REJECT
-# 知乎去广告，以下规则的位置越前方越好
-DOMAIN,appcloud2.in.zhihu.com,REJECT
-DOMAIN,mqtt.zhihu.com,reject
-DOMAIN,sugar.zhihu.com,reject
-USER-AGENT,AVOS*,REJECT
-
 # 贴吧屏蔽ws(副作用:消息通知功能失效,需手动进入查看),强制帖子接口走http
 DOMAIN,im.tieba.baidu.com,REJECT
 
