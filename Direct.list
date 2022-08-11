@@ -84,6 +84,13 @@ DOMAIN,sms.imagetasks.com,DIRECT
 # > Speed Test
 DOMAIN-SUFFIX,netspeedtestmaster.com,DIRECT
 DOMAIN,speedtest.macpaw.com,DIRECT
+DOMAIN,speed.dler.io,DIRECT
+DOMAIN-SUFFIX,fast.com,DIRECT
+DOMAIN-SUFFIX,ooklaserver.net,DIRECT
+DOMAIN-SUFFIX,speed.cloudflare.com,DIRECT
+DOMAIN-SUFFIX,speed.dler.io,DIRECT
+DOMAIN-KEYWORD,speedtest,DIRECT
+USER-AGENT,SpeedTest*,DIRECT
 # > Private Tracker
 DOMAIN-SUFFIX,acg.rip,DIRECT
 DOMAIN-SUFFIX,animebytes.tv,DIRECT
