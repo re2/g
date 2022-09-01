@@ -773,17 +773,25 @@ DOMAIN-SUFFIX,pornhubpremium.com,PROXY
 USER-AGENT,TaiwanGood*,PROXY
 DOMAIN-SUFFIX,skyking.com.tw,PROXY
 DOMAIN,hamifans.emome.net,PROXY
-# > TikTok
-USER-AGENT,TikTok*,PROXY
+# TikTok
+DOMAIN,p16-tiktokcdn-com.akamaized.net,PROXY
 DOMAIN-SUFFIX,byteoversea.com,PROXY
 DOMAIN-SUFFIX,ibytedtos.com,PROXY
+DOMAIN-SUFFIX,ibyteimg.com,PROXY
+DOMAIN-SUFFIX,ipstatp.com,PROXY
 DOMAIN-SUFFIX,muscdn.com,PROXY
 DOMAIN-SUFFIX,musical.ly,PROXY
-DOMAIN-SUFFIX,tiktok.com,PROXY
+DOMAIN-SUFFIX,sgpstatp.com,PROXY
+DOMAIN-SUFFIX,snssdk.com,PROXY
 DOMAIN-SUFFIX,tik-tokapi.com,PROXY
+DOMAIN-SUFFIX,tiktok.com,PROXY
 DOMAIN-SUFFIX,tiktokcdn.com,PROXY
 DOMAIN-SUFFIX,tiktokv.com,PROXY
 DOMAIN-KEYWORD,-tiktokcdn-com,PROXY
+DOMAIN-KEYWORD,musical.ly,PROXY
+DOMAIN-KEYWORD,tiktok,PROXY
+DOMAIN-KEYWORD,tiktokv,PROXY
+USER-AGENT,TikTok*,PROXY
 # > Twitch
 DOMAIN-SUFFIX,jtvnw.net,PROXY
 DOMAIN-SUFFIX,ttvnw.net,PROXY
