@@ -558,6 +558,14 @@ DOMAIN,adextra.51wnl-cq.com,REJECT
 DOMAIN,log.51wnl-cq.com,REJECT
 DOMAIN,r.51wnl-cq.com,REJECT
 
+# 云闪付
+DOMAIN,ads.95516.com,REJECT
+DOMAIN,cm-10-138.getui.com,REJECT
+DOMAIN,tysdk.95516.com,REJECT
+DOMAIN,sdk-conf.getui.com,REJECT
+DOMAIN,sdk.open.talk.getui.net,REJECT
+DOMAIN,switch.cup.com.cn,REJECT
+
 # (A)
 # > Apple
 DOMAIN-SUFFIX,iadsdk.apple.com,REJECT
