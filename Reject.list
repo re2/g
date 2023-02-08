@@ -17,6 +17,9 @@ DOMAIN,adim.pinduoduo.com,REJECT
 # 贴吧屏蔽ws(副作用:消息通知功能失效,需手动进入查看),强制帖子接口走http
 DOMAIN,im.tieba.baidu.com,REJECT
 
+# 工商银行 开屏广告
+DOMAIN,pageviewp.icbc.com.cn,REJECT
+
 # Advertising
 # > General
 DOMAIN-KEYWORD,adservice,REJECT
