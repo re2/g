@@ -10,7 +10,6 @@ DOMAIN-SUFFIX,ocsp.pki.goog,REJECT
 DOMAIN-SUFFIX,umeng.com,REJECT
 DOMAIN-SUFFIX,bytescm.com,REJECT
 DOMAIN-SUFFIX,ctobsnssdk.com,REJECT
-DOMAIN-SUFFIX,snssdk.com,REJECT
 DOMAIN,video-dsp.pddpic.com,REJECT
 DOMAIN,adim.pinduoduo.com,REJECT
 
