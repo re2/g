@@ -13,8 +13,8 @@
 [rewrite_local]
 
 # > 喜马拉雅｜儿童版,会员,音效&音质,去广告,界面优化+++
-^https?:\/\/.+((ximalaya)|(xmcdn)).+(mobile-user\/v2|mobile-web|queryCategoryPageData|discovery-feed\/v4|vip\/v1\/recommand|product\/detail\/v1|mobile\/v1\/album|playpage|album\/price\/ts).*$ url script-response-body https://raw.githubusercontent.com/WeiGiegie/666/main/xmly.js
-^https?:\/\/.+((ximalaya)|(xmcdn)).+\/[a-z]{6}\-[a-z]{8}\/track\/(v[0-9])\/[a-zA-Z]+\/ts.*$ url script-request-header https://raw.githubusercontent.com/WeiGiegie/666/main/xmck.js
+^https?:\/\/.+((ximalaya)|(xmcdn)).+(mobile-user\/v2|mobile-web|queryCategoryPageData|discovery-feed\/v4|vip\/v1\/recommand|product\/detail\/v1|mobile\/v1\/album|playpage|album\/price\/ts).*$ url script-response-body https://raw.githubusercontent.com/re2/g/master/xmck.js
+^https?:\/\/.+((ximalaya)|(xmcdn)).+\/[a-z]{6}\-[a-z]{8}\/track\/(v[0-9])\/[a-zA-Z]+\/ts.*$ url script-request-header https://raw.githubusercontent.com/re2/g/master/xmck.js
 # > 去广告,
 ^https?://openapi\.mysteel\.com/v5/getAdv.htm url reject
 ^https://ulogs\.umeng\.com/unify_logs url reject
