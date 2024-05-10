@@ -48,20 +48,20 @@
 
 ```properties
 [task_local]
-30 9 * * * https://raw.githubusercontent.com/re2/g/master/60s.js, tag=每天60秒读懂世界, img-url=https://raw.githubusercontent.com/Yuheng0101/X/main/Assets/60s.png, enabled=true
+30 9 * * * https://raw.githubusercontent.com/re2/g/master/60s.js, tag=每天60秒读懂世界, img-url=https://raw.githubusercontent.com/re2/Qure/master/IconSet/60s.png, enabled=true
 ```
 
 ### 配置 (Loon)
 
 ```properties
 [Script]
-cron "30 9 * * *" script-path=30 9 * * * https://raw.githubusercontent.com/re2/g/master/60s.js, tag=每天60秒读懂世界, img-url=https://raw.githubusercontent.com/Yuheng0101/X/main/Assets/60s.png, enabled=true, timeout=10, tag=每天60秒读懂世界, img-url=https://raw.githubusercontent.com/Yuheng0101/X/main/Assets/60s.png
+cron "30 9 * * *" script-path=30 9 * * * https://raw.githubusercontent.com/re2/g/master/60s.js, tag=每天60秒读懂世界, img-url=https://raw.githubusercontent.com/re2/Qure/master/IconSet/60s.png, enabled=true, timeout=10, tag=每天60秒读懂世界, img-url=https://raw.githubusercontent.com/Yuheng0101/X/main/Assets/60s.png
 ```
 
 ### 配置 (Surge)
 
 ```properties
-每天60秒读懂世界 = type=cron,cronexp=0 30 9 * * *,wake-system=1,script-path=30 9 * * * https://raw.githubusercontent.com/re2/g/master/60s.js, tag=每天60秒读懂世界, img-url=https://raw.githubusercontent.com/Yuheng0101/X/main/Assets/60s.png, enabled=true,timeout=60
+每天60秒读懂世界 = type=cron,cronexp=0 30 9 * * *,wake-system=1,script-path=30 9 * * * https://raw.githubusercontent.com/re2/g/master/60s.js, tag=每天60秒读懂世界, img-url=https://raw.githubusercontent.com/re2/Qure/master/IconSet/60s.png, enabled=true,timeout=60
 ```
 
 ### 致谢
