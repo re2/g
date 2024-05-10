@@ -48,20 +48,20 @@
 
 ```properties
 [task_local]
-30 9 * * * https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/60s.js, tag=每天60秒读懂世界, img-url=https://raw.githubusercontent.com/Yuheng0101/X/main/Assets/60s.png, enabled=true
+30 9 * * * https://raw.githubusercontent.com/re2/g/master/60s.js, tag=每天60秒读懂世界, img-url=https://raw.githubusercontent.com/Yuheng0101/X/main/Assets/60s.png, enabled=true
 ```
 
 ### 配置 (Loon)
 
 ```properties
 [Script]
-cron "30 9 * * *" script-path=https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/60s.js, timeout=10, tag=每天60秒读懂世界, img-url=https://raw.githubusercontent.com/Yuheng0101/X/main/Assets/60s.png
+cron "30 9 * * *" script-path=https://raw.githubusercontent.com/re2/g/master/60s.js, timeout=10, tag=每天60秒读懂世界, img-url=https://raw.githubusercontent.com/Yuheng0101/X/main/Assets/60s.png
 ```
 
 ### 配置 (Surge)
 
 ```properties
-每天60秒读懂世界 = type=cron,cronexp=0 30 9 * * *,wake-system=1,script-path=https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/60s.js,timeout=60
+每天60秒读懂世界 = type=cron,cronexp=0 30 9 * * *,wake-system=1,script-path=https://raw.githubusercontent.com/re2/g/master/60s.js,timeout=60
 ```
 
 ### 致谢
@@ -82,7 +82,7 @@ const notify = $.isNode() ? require('./sendNotify') : ''
 // 由于Surge通知过长会遮挡且点击后无法跳转日志, 在此做截断, 并且点击通知会跳转页面展示详情
 const MAX_MESSAGE_COUNT = 200 
 !(async () => {
-    await loadRemoteScriptByCache('https://cdn.jsdelivr.net/gh/Yuheng0101/X@main/Utils/cheerio.js', 'createCheerio', 'cheerio')
+    await loadRemoteScriptByCache('https://cdn.jsdelivr.net/gh/re2/g@master/cheerio.js', 'createCheerio', 'cheerio')
     const junla = new JunLa()
     let { title, thumb, content, openURL } = await junla.getContentBackup()
     openURL = openURL || (await junla.getImageBackup())
