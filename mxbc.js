@@ -11,6 +11,8 @@
 
 [Script]
 http-response ^https:\/\/mxsa\.mxbc\.net\/api\/v1\/customer\/info script-path=https://gist.githubusercontent.com/Sliverkiss/865c82e42a5730bb696f6700ebb94cee/raw/mxbc.js, requires-body=true, timeout=60, tag=蜜雪冰城获取token
+[rewrite_local]
+^https:\/\/mxsa\.mxbc\.net\/api\/v1\/customer\/info url script-response-body https://raw.githubusercontent.com/re2/g/master/mxbc.js
 
 [MITM]
 hostname = mxsa.mxbc.net
