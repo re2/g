@@ -13,7 +13,12 @@
 5. 如果任何单位或个人认为该脚本可能涉嫌侵犯其权利，应及时通知并提供身份证明、所有权证明，我将在收到认证文件确认后删除
 6. 请勿将本脚本用于商业用途，由此引起的问题与作者无关
 7. 本脚本及其更新版权归作者所有
- 
+[mitm]
+hostname = mei.tu
+
+[rewrite_local]
+^https?:\/\/mei\.tu url script-analyze-echo-response https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/meitu/meitu.js 
+
 [task_local]
 30 20 * * * https://raw.githubusercontent.com/Yuheng0101/X/main/Tasks/meitu/meitu.js, tag=美图鉴赏, enabled=true, img-url=https://raw.githubusercontent.com/Yuheng0101/X/main/Assets/meitu.png
 
