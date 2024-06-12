@@ -9,7 +9,7 @@ const regex = "</title>";
 const replace_str =
   '</title>\
 <link rel="stylesheet" href="https://raw.githubusercontent.com/re2/g/master/Adblock4limbo.css" type="text/css" />\
-<script type="text/javascript" async="async" src="https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/limbo/Adblock4limbo.js"></script>\
+<script type="text/javascript" async="async" src="https://raw.githubusercontent.com/re2/g/master/Adblock4limbo.js"></script>\
 ';
 
 // 定义响应体
