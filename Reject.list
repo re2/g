@@ -573,6 +573,9 @@ DOMAIN,adextra.51wnl-cq.com,REJECT
 DOMAIN,log.51wnl-cq.com,REJECT
 DOMAIN,r.51wnl-cq.com,REJECT
 
+# > 阿里云
+IP-CIDR, 203.107.1.1/24, reject
+
 # 云闪付
 DOMAIN,ads.95516.com,REJECT
 DOMAIN,cm-10-138.getui.com,REJECT
@@ -610,28 +613,217 @@ DOMAIN,adm3.autoimg.cn,REJECT
 
 # (B)
 # --- (Baidu) ---
-DOMAIN-SUFFIX,duapps.com,REJECT
-DOMAIN-SUFFIX,cpro.baidu.com,REJECT
-DOMAIN-SUFFIX,pos.baidu.com,REJECT
-DOMAIN,afd.baidu.com,REJECT
-DOMAIN,als.baidu.com,REJECT
-DOMAIN,duclick.baidu.com,REJECT
-DOMAIN,mobads.baidu.com,REJECT
-DOMAIN,mobads-logs.baidu.com,REJECT
-DOMAIN,nadvideo2.baidu.com,REJECT
-DOMAIN,nsclick.baidu.com,REJECT
+# > 百度
+host-suffix, duapps.com, reject
+host-suffix, cpro.baidu.com, reject
+host-suffix, pos.baidu.com, reject
+host, afd.baidu.com, reject
+host, als.baidu.com, reject
+host, duclick.baidu.com, reject
+host, mobads.baidu.com, reject
+host, mobads-logs.baidu.com, reject
+host, nadvideo2.baidu.com, reject
+host, nsclick.baidu.com, reject
+host-suffix, bce.baidu.com, reject
+host-suffix, bar.baidu.com, reject
+host-suffix, baiduyubaidu.com, reject
+host-suffix, baidutv.baidu.com, reject
+host-suffix, baichuan.baidu.com, reject
+host-suffix, appc.baidu.com, reject
+host-suffix, anquan.baidu.com, reject
+host-suffix, adscdn.baidu.com, reject
+host-suffix, adm.baidu.com, reject
+host-suffix, ad.player.baidu.com, reject
+host-suffix, a.baidu.com, reject
+host-suffix, antivirus.baidu.com, reject
+host-suffix, baifen.music.baidu.com, reject
+host-suffix, banlv.baidu.com, reject
+host-suffix, cm.baidu.com, reject
+host-suffix, cpro.zhidao.baidu.com, reject
+host-suffix, cleaner.baidu.com, reject
+host-suffix, cjhq.baidu.com, reject
+host-suffix, cb.baidu.com, reject
+host-suffix, c.baidu.com, reject
+host-suffix, btlaunch.baidu.com, reject
+host-suffix, bdplus.baidu.com, reject
+host-suffix, cbjs.baidu.com, reject
+host-suffix, cpro2.baidu.com, reject
+host-suffix, cpu-admin.baidu.com, reject
+host-suffix, 10086.cn.baidu.cdn.yiwk.com, reject
+host-suffix, 360baidus.com, reject
+host-suffix, app.ibaiducdn.com, reject
+host-suffix, baidu.cybcyw.com, reject
+host-suffix, baidu.dsp.tansuotv.com, reject
+host-suffix, baidu.greenxf.cn, reject
+host-suffix, baidu.jz5u.net, reject
+host-suffix, baiduace.com, reject
+host-suffix, baidujs.cnys.com, reject
+host-suffix, baidulao.com, reject
+host-suffix, baidut.github.io, reject
+host-suffix, baidu-union-js.xiachufang.com, reject
+host-suffix, baidu-union-pos.xiachufang.com, reject
+host-suffix, baiduzhidahao.cc, reject
+host-suffix, cpro.baidu.cn, reject
+host-suffix, crs.baidu.com, reject
+host-suffix, datax.baidu.com, reject
+host-suffix, dl.client.baidu.com, reject
+host-suffix, dl.ops.baidu.com, reject
+host-suffix, dl1sw.baidu.com, reject
+host-suffix, dl2.bav.baidu.com, reject
+host-suffix, dlsw.baidu.com, reject
+host-suffix, dlsw.br.baidu.com, reject
+host-suffix, dl-vip.bav.baidu.com, reject
+host-suffix, dl-vip.pcfaster.baidu.co.th, reject
+host-suffix, download.bav.baidu.com, reject
+host-suffix, download.sd.baidu.com, reject
+host-suffix, drmcmm.baidu.com, reject
+host-suffix, duiwai.baidu.com, reject
+host-suffix, dxp.baidu.com, reject
+host-suffix, dzl.baidu.com, reject
+host-suffix, e.baidu.com, reject
+host-suffix, eclick.baidu.com, reject
+host-suffix, eiv.baidu.com, reject
+host-suffix, em.baidu.com, reject
+host-suffix, entry.baidu.com, reject
+host-suffix, ers.baidu.com, reject
+host-suffix, fclick.baidu.com, reject
+host-suffix, feed.baidu.com, reject
+host-suffix, fexclick.baidu.com, reject
+host-suffix, g.baidu.com, reject
+host-suffix, gimg.baidu.com, reject
+host-suffix, guanjia.baidu.com, reject
+host-suffix, hc.baidu.com, reject
+host-suffix, hdj.baidu.com, reject
+host-suffix, hpd.baidu.com, reject
+host-suffix, idm-su.baidu.com, reject
+host-suffix, iebar.baidu.com, reject
+host-suffix, ikcode.baidu.com, reject
+host-suffix, iwanad.baidu.com, reject
+host-suffix, j.br.baidu.com, reject
+host-suffix, jb.mbaidu.top, reject
+host-suffix, js.mbaidu.top, reject
+host-suffix, kstj.baidu.com, reject
+host-suffix, m.baidu.com.yiqisee.cn, reject
+host-suffix, m.baidu.com.zhiduo.org, reject
+host-suffix, m1.baidu.com, reject
+host-suffix, ma.baidu.com, reject
+host-suffix, mpro.baidu.com, reject
+host-suffix, msite.baidu.com, reject
+host-suffix, mssp.baidu.com, reject
+host-suffix, mtj.baidu.com, reject
+host-suffix, neirong.baidu.com, reject
+host-suffix, nlog.baidu.com, reject
+host-suffix, nsclickvideo.baidu.com, reject
+host-suffix, openrcv.baidu.com, reject
+host-suffix, paimgcdn.baidu.com, reject
+host-suffix, pc.videoclick.baidu.com, reject
+host-suffix, push.zhanzhang.baidu.com, reject
+host-suffix, qianclick.baidu.com, reject
+host-suffix, release.baidu.com, reject
+host-suffix, river.zhidao.baidu.com, reject
+host-suffix, rj.baidu.com, reject
+host-suffix, rplog.baidu.com, reject
+host-suffix, s.baidu.com, reject
+host-suffix, sclick.baidu.com, reject
+host-suffix, sestat.baidu.com, reject
+host-suffix, shadu.baidu.com, reject
+host-suffix, sobar.baidu.com, reject
+host-suffix, sobartop.baidu.com, reject
+host-suffix, spcode.baidu.com, reject
+host-suffix, tk.baidu.com, reject
+host-suffix, tkweb.baidu.com, reject
+host-suffix, toolbar.baidu.com, reject
+host-suffix, tuijian.baidu.com, reject
+host-suffix, tuisong.baidu.com, reject
+host-suffix, ucstat.baidu.com, reject
+host-suffix, ulic.baidu.com, reject
+host-suffix, ulog.imap.baidu.com, reject
+host-suffix, union.baidu.com, reject
+host-suffix, union.baidustatic.guannin.com, reject
+host-suffix, unionimage.baidu.com, reject
+host-suffix, utility.baidu.com, reject
+host-suffix, utk.baidu.com, reject
+host-suffix, videopush.baidu.com, reject
+host-suffix, w.gdown.baidu.com, reject
+host-suffix, w.x.baidu.com, reject
+host-suffix, wangmeng.baidu.com, reject
+host-suffix, weishi.baidu.com, reject
+host-suffix, wisepush.video.baidu.com, reject
+host-suffix, wm.baidu.com, reject
+host-suffix, yingxiao.baidu.com, reject
+host-suffix, znsv.baidu.com, reject
+host-suffix, baidustatic.com, reject
+host-suffix, als.baidu.com, reject
+host-suffix, duclick.baidu.com, reject
+host-suffix, hm.baidu.com, reject
+host-suffix, hmma.baidu.com, reject
+host-suffix, mobads.baidu.com, reject
+host-suffix, mobads-logs.baidu.com, reject
+host-suffix, nsclick.baidu.com, reject
+host, hm.baidu.com, reject
+host, hmma.baidu.com, reject
+# 百度地图
+host, afd.baidu.com, reject
+host, afdconf.baidu.com, reject
+host, httpdns.baidubce.com, reject
+host, lc.map.baidu.com, reject
+
+# > 百度贴吧 屏蔽域名dns查询
+IP-CIDR, 180.76.76.200/32, reject
 # > iQIYI
-DOMAIN,t7z.cupid.iqiyi.com,REJECT
-DOMAIN,t7z.cupid.ptqy.gitv.tv,REJECT
-IP-CIDR,101.227.97.240/32,REJECT
-IP-CIDR,101.227.200.11/32,REJECT
-IP-CIDR,101.227.200.28/32,REJECT
-IP-CIDR,124.192.153.42/32,REJECT
+# > 爱奇艺
+host, api.iqiyi.com, reject
+host, cr-status.iqiyi.com, reject
+host, f74f7f7765f8a2f6.ngaa.net.cn, reject
+host, ef-dongfeng.tanx.com, reject
+host, iqiyim.adtrack.enlightent.cn, reject
+host, dig.bdurl.net, reject
+host, t7z.cupid.iqiyi.com, reject
+host, t7z.cupid.ptqy.gitv.tv, reject
+host-suffix, cupid.iqiyi.com, reject
+host-suffix, t7z.cupid.iqiyi.com, reject
+host-suffix, static-s.iqiyi.com, reject
+host-suffix, a.ckm.iqiyi.com, reject
+host-suffix, ad.m.iqiyi.com, reject
+host-suffix, afp.iqiyi.com, reject
+host-suffix, api.cupid.iqiyi.com, reject
+host-suffix, api.cupid.qiyi.com, reject
+host-suffix, c.uaa.iqiyi.com, reject
+host-suffix, cloudpush.iqiyi.com, reject
+host-suffix, cm.passport.iqiyi.com, reject
+host-suffix, count.game.pps.tv, reject
+host-suffix, cupid.iqiyi.com, reject
+host-suffix, emoticon.sns.iqiyi.com, reject
+host-suffix, gamecenter.iqiyi.com, reject
+host-suffix, mbdlog.iqiyi.com, reject
+host-suffix, msg.iqiyi.com, reject
+host-suffix, msg.video.qiyi.com, reject
+host-suffix, msg2.video.qiyi.com, reject
+host-suffix, static.g.iqiyi.com, reject
+host-suffix, static.g.ppstream.com, reject
+host-suffix, store.iqiyi.com, reject
+host-suffix, tracker.sns.iqiyi.com, reject
+host-suffix, yuedu.iqiyi.com, reject
+host-suffix, msga.cupid.iqiyi.com, reject
+host-suffix, nl.notice.iqiyi.com, reject
+host-suffix, nl.rcd.iqiyi.com, reject
+host-suffix, notice.iqiyi.com, reject
+host-suffix, noxagile.duapp.com, reject
+host-suffix, paopao.iqiyi.com, reject
+host-suffix, policy.video.iqiyi.com, reject
+host-suffix, ifacelog.iqiyi.com, reject
+IP-CIDR, 203.107.63.154/32, reject
+IP-CIDR, 101.227.97.240/32, reject
+IP-CIDR, 101.227.200.11/32, reject
+IP-CIDR, 101.227.200.28/32, reject
+IP-CIDR, 124.192.153.42/32, reject
 # ------
 # > ByteDance
 DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
 DOMAIN,ad.toutiao.com,REJECT
 DOMAIN,pangolin.snssdk.com,REJECT
+host-keyword, bds.snssdk.com, reject
+host-keyword, p3.pstatp.com, reject
 # > baicizhan
 DOMAIN,advertise.baicizhan.com,REJECT
 DOMAIN,advertise.baicizhan.org,REJECT
@@ -817,20 +1009,125 @@ DOMAIN,ads.snapchat.com,REJECT
 DOMAIN,adsapi.snapchat.com,REJECT
 
 # (T)
-# --- (Tencent) ---
-DOMAIN-SUFFIX,e.qq.com,REJECT
-DOMAIN-SUFFIX,gdt.qq.com,REJECT
-DOMAIN-SUFFIX,l.qq.com,REJECT
-DOMAIN,adsmind.apdcdn.tc.qq.com,REJECT
-DOMAIN,adsmind.gdtimg.com,REJECT
-DOMAIN,adsmind.tc.qq.com,REJECT
-DOMAIN,pgdt.gtimg.cn,REJECT
-DOMAIN,pgdt.gtimg.com,REJECT
-DOMAIN,pgdt.ugdtimg.com,REJECT
-DOMAIN,splashqqlive.gtimg.com,REJECT
-DOMAIN,wa.gtimg.com,REJECT
-DOMAIN,wxsnsdy.wxs.qq.com,REJECT
-DOMAIN,wxsnsdythumb.wxs.qq.com,REJECT
+# > 腾讯视频
+DOMAIN,adsmind.gdtimg.com, REJECT
+DOMAIN,btrace.qq.com, REJECT
+DOMAIN,btrace.video.qq.com, REJECT
+DOMAIN,info4.video.qq.com, REJECT
+DOMAIN,info6.video.qq.com, REJECT
+DOMAIN,ios.video.mpush.qq.com, REJECT
+DOMAIN,mtrace.qq.com, REJECT
+DOMAIN,p.l.qq.com, REJECT
+DOMAIN,pgdt.gtimg.cn, REJECT
+DOMAIN,rpt.gdt.qq.com, REJECT
+DOMAIN-SUFFIX,trace.qq.com, REJECT
+DOMAIN-SUFFIX,tetrack.qq.com, REJECT
+DOMAIN-SUFFIX,tpns.tencent.com, REJECT
+DOMAIN-SUFFIX,api.poll.video.qq.com, REJECT
+DOMAIN-SUFFIX,static-res.qq.com, REJECT
+DOMAIN-SUFFIX,stat.tpns.tencent.com, REJECT
+DOMAIN,h.trace.qq.com, REJECT
+host-keyword, omgmta.qq.com, REJECT
+host-keyword, omgmta1.qq.com, REJECT
+# >  腾讯
+host-suffix, news.ssp.qq.com, reject
+host-suffix, news.l.qq.com, reject
+host-suffix, activeqq.3g.qq.com, reject
+host-suffix, ad.qq.com, reject
+host-suffix, adping.qq.com, reject
+host-suffix, adpm.app.qq.com, reject
+host-suffix, adrdir.qq.com, reject
+host-suffix, adsclick.qq.com, reject
+host-suffix, adsense.html5.qq.com, reject
+host-suffix, adsfile.qq.com, reject
+host-suffix, adsgroup.qq.com, reject
+host-suffix, adshmct.qq.com, reject
+host-suffix, adshmmsg.qq.com, reject
+host-suffix, adslvfile.qq.com, reject
+host-suffix, adslvseed.qq.com, reject
+host-suffix, adsolution.imtt.qq.com, reject
+host-suffix, adsqqclick.qq.com, reject
+host-suffix, adstextview.qq.com, reject
+host-suffix, adsview.qq.com, reject
+host-suffix, adsview2.qq.com, reject
+host-suffix, adv.app.qq.com, reject
+host-suffix, adver.qq.com, reject
+host-suffix, aeventlog.beacon.qq.com, reject
+host-suffix, analy.qq.com, reject
+host-suffix, astrategy.beacon.qq.com, reject
+host-suffix, c.gdt.qq.com, reject
+host-suffix, c.gj.qq.com, reject
+host-suffix, canvas.gdt.qq.com, reject
+host-suffix, d.gdt.qq.com, reject
+host-suffix, d3g.qq.com, reject
+host-suffix, download.sj.qq.com, reject
+host-suffix, dp3.qq.com, reject
+host-suffix, eventlog.beacon.qq.com, reject
+host-suffix, game.html5.qq.com, reject
+host-suffix, ggmmqq.com, reject
+host-suffix, j.wit.qq.com, reject
+host-suffix, jqmt.qq.com, reject
+host-suffix, jrlt.beacon.qq.com, reject
+host-suffix, jsqmt.qq.com, reject
+host-suffix, lives.l.qq.com, reject
+host-suffix, livep.l.qq.com, reject
+host-suffix, mi.gdt.qq.com, reject
+host-suffix, livep.l.ott.video.qq.com, reject
+host-suffix, lives.l.ott.video.qq.com, reject
+host-suffix, masdk.3g.qq.com, reject
+host-suffix, mfm.video.qq.com, reject
+host-suffix, mini2015.qq.com, reject
+host-suffix, monitor.uu.qq.com, reject
+host-suffix, mqqad.cs0309.html5.qq.com, reject
+host-suffix, mqqad.html5.qq.com, reject
+host-suffix, mqqadr.reader.qq.com, reject
+host-suffix, nc.gdt.qq.com, reject
+host-suffix, news.mpush.qq.com, reject
+host-suffix, news-l.play.ott.video.qq.com, reject
+host-suffix, novelsns.html5.qq.com, reject
+host-suffix, oth.update.mdt.qq.com, reject
+host-suffix, pcbrowser.dd.qq.com, reject
+host-suffix, pmir.3g.qq.com, reject
+host-suffix, pvstat.html5.qq.com, reject
+host-suffix, q.i.gdt.qq.com, reject
+host-suffix, qqshow2-item.qq.com, reject
+host-suffix, rm.gdt.qq.com, reject
+host-suffix, scdown.qq.com, reject
+host-suffix, setting.snswin.qq.com, reject
+host-suffix, sngmta.qq.com, reject
+host-suffix, strategy.beacon.qq.com, reject
+host-suffix, t.gdt.qq.com, reject
+host-suffix, t.sj.qq.com, reject
+host-suffix, ta.qq.com, reject
+host-suffix, tcss.qq.com, reject
+host-suffix, tpush.html5.qq.com, reject
+host-suffix, updatecenter.qq.com, reject
+host-suffix, video.ureport.push.qq.com, reject
+host-suffix, video.wap.mpush.qq.com, reject
+host-suffix, vlive.qqvideo.tc.qq.com, reject
+host-suffix, wap.mpush.qq.com, reject
+host-suffix, win.gdt.qq.com, reject
+host-suffix, ws.sj.qq.com, reject
+host-suffix, wxsnsdy.tc.qq.com, reject
+host-suffix, wxsnsdy.video.qq.com, reject
+host-suffix, adsmind.tc.qq.com, reject
+host-suffix, pingma.qq.com, reject
+host-suffix, pingtcss.qq.com, reject
+host-suffix, tajs.qq.com, reject
+host-suffix, fusion.qq.com, reject
+host-suffix, ios.bugly.qq.com, reject
+host, safebrowsing.urlsec.qq.com, reject
+host-suffix, oth.str.mdt.qq.com, reject
+host-suffix, l.qq.com, reject
+host, adsmind.apdcdn.tc.qq.com, reject
+host, adsmind.tc.qq.com, reject
+host, livep.l.t002.ottcn.com, reject
+host, pgdt.ugdtimg.com, reject
+host, splashqqlive.gtimg.com, reject
+host, vv.video.qq.com, reject
+host, wa.gtimg.com, reject
+host, wxsnsdy.wxs.qq.com, reject
+host, wxsmsdy.video.qq.com, reject
 # > Tencent Music (TME)
 DOMAIN,ad.tencentmusic.com,REJECT
 DOMAIN,adstats.tencentmusic.com,REJECT
