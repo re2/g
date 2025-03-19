@@ -772,9 +772,11 @@ host, lc.map.baidu.com, reject
 
 # > 百度贴吧 屏蔽域名dns查询
 IP-CIDR, 180.76.76.200/32, reject
+
 # > iQIYI
 # > 爱奇艺
 host, api.iqiyi.com, reject
+host, access.if.iqiyi.com, reject
 host, cr-status.iqiyi.com, reject
 host, f74f7f7765f8a2f6.ngaa.net.cn, reject
 host, ef-dongfeng.tanx.com, reject
@@ -814,6 +816,9 @@ host-suffix, noxagile.duapp.com, reject
 host-suffix, paopao.iqiyi.com, reject
 host-suffix, policy.video.iqiyi.com, reject
 host-suffix, ifacelog.iqiyi.com, reject
+IP-CIDR, 103.44.59.54/32, reject
+IP-CIDR, 111.63.147.158/32, reject
+IP-CIDR, 116.211.198.237/32, reject
 IP-CIDR, 203.107.63.154/32, reject
 IP-CIDR, 101.227.97.240/32, reject
 IP-CIDR, 101.227.200.11/32, reject
