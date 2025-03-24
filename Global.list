@@ -501,6 +501,7 @@ DOMAIN-SUFFIX,twitter.jp	, PROXY
 DOMAIN-SUFFIX,thepaper.cn	, PROXY
 DOMAIN-SUFFIX,mrmad.com.tw	, PROXY
 DOMAIN-SUFFIX,missav.ws	, PROXY
+DOMAIN-SUFFIX,missav.com	, PROXY
 
 # (Region-Restricted Access Denied)	
 # ---(Apple)---	
