@@ -2,7 +2,7 @@
  *
  *
 脚本功能：keep 课程预览 直播课。会员付费课跟练 会员训练计划
-软件版本：
+软件版本：http://script.hub/file/_start_/https://raw.githubusercontent.com/WeiGiegie/666/main/keep.js/_end_/keep.plugin?type=qx-rewrite&target=loon-plugin&del=true&jqEnabled=true
 下载地址：8.2.30
 脚本作者：
 更新时间：2024+
