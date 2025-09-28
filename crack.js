@@ -22,7 +22,8 @@ if(typeof $response == "undefined") {
   if(body && body.subscriber) {
     let date = {"expires_date": "2999-01-01T00:00:00Z","original_purchase_date":"2021-01-01T00:00:00Z","purchase_date": "2021-01-01T00:00:00Z","ownership_type": "PURCHASED","store": "app_store"};
     let subscriber = body.subscriber;
-    let bundle_id = $request.headers["X-Client-Bundle-ID"]?$request.headers["X-Client-Bundle-ID"]:$request.headers["User-Agent"].match(/^[%a-zA-Z0-9]+/)[0];
+    const newObj = Object.fromEntries(Object.entries($request.headers).map(([k, v]) => [k.toLowerCase(), v]));
+    let bundle_id = newObj["x-client-bundle-id"]?newObj["x-client-bundle-id"]:newObj["user-agent"].match(/^[%a-zA-Z0-9]+/)[0];
     const list = [
       {"app_name":"Days","bundle_id":"net.mattdavenport.daysuntil","product_id":"net.mattdavenport.daysuntil.dayspremiumlifetime","entitlements":["premium","pro"],"version":"3.15"},
       {"app_name":"Diarly","bundle_id":"com.pureformstudio.diaryOSX","product_id":"com.pureformstudio.diary.yearly_2022_promo","entitlements":["PRO"],"version":"3.18"},
@@ -107,7 +108,41 @@ if(typeof $response == "undefined") {
       {"app_name":"Fiery%20Feeds","bundle_id":"net.voidstern.fiery-feeds","product_id":"net.voidstern.fieryfeeds.yearly.trial","entitlements":["com.fieryfeeds.pro"],"version":"2.12.5"},
       {"app_name":"Focused%20iOS","bundle_id":"net.voidstern.focused","product_id":"net.voidstern.focused.yearly.trial","entitlements":["Pro"],"version":"1.9.2"},
       {"app_name":"Any%20IPTV%20Player","bundle_id":"com.anyiptvplayer.cihan","product_id":"lifetimepremium","entitlements":["premium"],"version":"6.9.7"},
-      {"app_name":"WordBoard","bundle_id":"net.bytesize.wordboard","product_id":"net.bytesize.wordboard.iap.pro","entitlements":["pro"],"version":"6.5.1"}
+      {"app_name":"WordBoard","bundle_id":"net.bytesize.wordboard","product_id":"net.bytesize.wordboard.iap.pro","entitlements":["pro"],"version":"6.5.1"},
+      {"app_name":"HabitDone","bundle_id":"com.dison.HabitDone","product_id":"Lifetime","entitlements":["pro"],"version":"3.1.2"},
+      {"app_name":"Hydro%20Coach","bundle_id":"com.codium.hydrocoach","product_id":"hc_pro_lifetime","entitlements":["pro"],"version":"1.0.10"},
+      {"app_name":"Planny","bundle_id":"com.kevinreutter.Artemis","product_id":"com.kevinreutter.Artemis.PremiumLifetime","entitlements":["Premium"],"version":"10.0.17"},
+      {"app_name":"%E8%A8%80%E5%A4%96%E7%AC%94%E8%AE%B0","bundle_id":"io.innerpeace.yiye","product_id":"io.innerpeace.yiye.lifetime.forYearly","entitlements":["Lifetime","Premium"],"version":"2.18.7"},
+      {"app_name":"Persona","bundle_id":"com.tickettothemoon.video.persona","product_id":"com.tickettothemoon.video.persona.vip.inab3.one.time.195","entitlements":["unlimited"],"version":"1.11.22"},
+      {"app_name":"Foca","bundle_id":"com.foca-2020.foca","product_id":"lifetime_purchase_macOS_1.0","entitlements":["Pro"],"version":"1.3.0"},
+      {"app_name":"AIChat","bundle_id":"com.talgat.AIChat","product_id":"com.talgat.AIChat.year","entitlements":["FullAccess"],"version":"1.92"},
+      {"app_name":"vpn","bundle_id":"us.ultrasurf.vpn","product_id":"ultrasurf_yearly","entitlements":["pro"],"version":"2.2"},
+      {"app_name":"AMood","bundle_id":"HengYi.AMood","product_id":"1001","entitlements":["pro"],"version":"2.9.8"},
+      {"app_name":"Kylin","bundle_id":"lan.kylin","product_id":"pro_life","entitlements":["pro"],"version":"1.27.5"},
+      {"app_name":"OneBox","bundle_id":"","product_id":"com.ziheng.pandora.lifetime","entitlements":["all"],"version":"2.2.1"},
+      {"app_name":"Echo","bundle_id":"com.LEMO.LemoFM","product_id":"com.LEMO.LemoFm.plus.lifetime.11","entitlements":["Lifetime","PLUS"],"version":"1.11.1"},
+      {"app_name":"Aphrodite","bundle_id":"com.ziheng.aphrodite","product_id":"com.ziheng.aphrodite.lifetime","entitlements":["all"],"version":"2.0.7"},
+      {"app_name":"ArchiveList","bundle_id":"com.jy.ArchiveBox","product_id":"com.jy.ArchiveBox.pro_1","entitlements":["pro_life"],"version":"2.6.1"},
+      {"app_name":"%E4%BA%BA%E7%94%9F%E6%B8%85%E5%8D%95","bundle_id":"com.metaorder.LifeList","product_id":"com.metaorder.lifelist.premium","entitlements":["premium","pro"],"version":"2.2.3"},
+      {"app_name":"XCam","bundle_id":"com.miiiao.XCam","product_id":"com.miiiao.xcam.lifetime","entitlements":["pro"],"version":"1.40"},
+      {"app_name":"CountDuck","bundle_id":"co.countduck.app","product_id":"Lifetime","entitlements":["premium"],"version":"3.0.1"},
+      {"app_name":"MySticker","bundle_id":"com.miiiao.MySticker","product_id":"com.miiiao.MySticker.lifetime","entitlements":["mysticker premium"],"version":"3.4"},
+      {"app_name":"%E7%94%BB%E5%8E%86","bundle_id":"com.bapaws.calendar","product_id":"com.bapaws.calendar.lifetime","entitlements":["pro"],"version":"1.7.8"},
+      {"app_name":"iHabit","bundle_id":"com.gostraight.iHabit","product_id":"ihabit_forever_payment_vip","entitlements":["ihabit_lTime_subscription","ihabit_subscription_pro"],"version":"1.0.25"},
+      {"app_name":"%E6%BA%AA%E6%B5%81","bundle_id":"com.donewin.brainwaves","product_id":"rive_premium_lifetime","entitlements":["rive_premium"],"version":"2.0.1"},
+      {"app_name":"记一杯","bundle_id":"me.xgmm.markacup","product_id":"202403180021","entitlements":["premiun"],"version":"1.5.4"},
+      {"app_name":"Inread","bundle_id":"Swipe-and-tap.inRead","product_id":"inRead.premium.monthly","entitlements":["premium_access"],"version":"1.4"},
+      {"app_name":"Yosum","bundle_id":"terrykuo.co.yosum","product_id":"terrykuo.co.yosum.premiummembership","entitlements":["Premium"],"version":"2.5.5"},
+      {"app_name":"DHWaterMarkManager","bundle_id":"","product_id":"lifetimeVIP_001","entitlements":["vip"],"version":"1.2.2"},
+      {"app_name":"ZenTime","bundle_id":"com.c2.applock.cloak","product_id":"com.c2.applock.cloak.lifetime","entitlements":["Pro"],"version":"1.1.5"},
+      {"app_name":"快制图表","bundle_id":"com.yong.quickChart","product_id":"qgnjs_lifetime","entitlements":["unlock all"],"version":"3.35.0"},
+      {"app_name":"语音合成助手","bundle_id":"social.steet.TextToSpeech","product_id":"tts_1m","entitlements":["premium"],"version":"3.9.1"},
+      {"app_name":"Record2Text","bundle_id":"skylar.app.Record2Text","product_id":"afi.recnote.pro","entitlements":["afi.recnote.pro"],"version":"8.5"},
+      {"app_name":"pokenote","bundle_id":"com.migao.pokenote","product_id":"pokenote_pro","entitlements":["pro"],"version":"2.0.2"},
+      {"app_name":"Watchly","bundle_id":"com.appexosolutions.watchface","product_id":"watchface.lifetime","entitlements":["lifetime"],"version":"2.3.5"},
+      {"app_name":"%E6%BB%B4%E7%AD%94%E6%97%B6%E9%92%9F","bundle_id":"com.do.flipclock","product_id":"lifetime_1","entitlements":["lifetime_1"],"version":"2.0.9"},
+      {"app_name":"时间记录","bundle_id":"com.bapaws.Hours","product_id":"com.bapaws.Hours.lifetime","entitlements":["pro"],"version":"1.8.6"},
+      {"app_name":"EventLine","bundle_id":"xyz.jiaolong.app.EventLine","product_id":"xyz.jiaolong.eventline.pro.lifetime","entitlements":["pro"],"version":"1.15.0"}
    ];  
    for(let data of list){
      if(bundle_id == data.bundle_id || bundle_id == data.app_name){
