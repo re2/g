@@ -13,7 +13,7 @@
 [rewrite_local]
 
 # > 喜马拉雅+会员解锁+大师课+音质/音效/下载/播放器皮肤
-^https?:\/\/.+((ximalaya)|(xmcdn)).+(mobile-user\/v2\/homePage|product\/detail\/v1|v1\/album\/track\/ts|mobile-playpage\/track\/v4\/baseInfo\/ts|mobile-playpage\/playpage\/tabs\/v2|mobile-playpage\/playpage\/track\/qualityAndEffect|mobile\/download\/v2\/track|mobile-user-grade\/decoratorV2\/decorationDetails\/page|mobile-album\/album\/plant\/grass) url script-response-body https://raw.githubusercontent.com/WeiGiegie/666/main/ximalaya.js
+^https?:\/\/.+((ximalaya)|(xmcdn)).+(mobile-user\/v2\/homePage|product\/detail\/v1|v1\/album\/track\/ts|mobile-playpage\/track\/v4\/baseInfo\/ts|mobile-playpage\/playpage\/tabs\/v2|mobile-playpage\/playpage\/track\/qualityAndEffect|mobile\/download\/v2\/track|mobile-user-grade\/decoratorV2\/decorationDetails\/page|mobile-album\/album\/plant\/grass) url script-response-body https://raw.githubusercontent.com/re2/g/master/ximalaya.js
 #  > 去广告
 ^https?://passport\.ximalaya\.com/friendship-mobile/v1/findFriendsBanner/show/ url reject
 ^https?://xdcs-collector\.ximalaya\.com/api/v1/realtime url reject
