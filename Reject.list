@@ -13,6 +13,7 @@ DOMAIN-SUFFIX,ctobsnssdk.com,REJECT
 DOMAIN,video-dsp.pddpic.com,REJECT
 DOMAIN,adim.pinduoduo.com,REJECT
 
+
 # 贴吧屏蔽ws(副作用:消息通知功能失效,需手动进入查看),强制帖子接口走http
 DOMAIN,im.tieba.baidu.com,REJECT
 
@@ -1093,6 +1094,8 @@ DOMAIN,adsapi.snapchat.com,REJECT
 
 # (T)
 # > 腾讯视频
+DOMAIN, iacc.stgw.qq.com, REJECT
+DOMAIN, tacc.video.qq.com, REJECT
 DOMAIN,adsmind.gdtimg.com, REJECT
 DOMAIN,btrace.qq.com, REJECT
 DOMAIN,btrace.video.qq.com, REJECT
